@@ -9,14 +9,13 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D coll; 
 
     [SerializeField] private LayerMask jumpableGround;
-    [SerializeField] private BoxCollider2D enemyColl;
+    [SerializeField] private HealthBar healthBar; 
 
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
     private float dirX; 
-
-    [SerializeField] private int maxHealth = 3; 
-    [SerializeField] private int currentHealth; 
+    public int maxHealth = 3; 
+    public int currentHealth; 
 
     // Start is called before the first frame update
     private void Start()
@@ -61,12 +60,14 @@ public class PlayerController : MonoBehaviour
     private void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        Debug.Log("You have "+currentHealth+" hearts left");
+        healthBar.UpdateHealth(); 
 
         if (currentHealth <= 0){
             Destroy(gameObject); 
             Debug.Log("You died!");
         }
     }
+
+    
 
 }
