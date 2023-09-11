@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float moveSpeed = 1f; 
     private Rigidbody2D rigb;
 
-    [SerializeField] private int maxHealth = 5; 
+    [SerializeField] private int maxHealth = 10; 
     private int currentHealth;
 
     [SerializeField] private Slider healthSlider; 
