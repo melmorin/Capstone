@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsometricMovement : MonoBehaviour
+public class TopDownMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f; 
     [SerializeField] private Rigidbody2D rigb;
