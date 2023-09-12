@@ -5,12 +5,9 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f; 
-    private Rigidbody2D rigb;
 
     [SerializeField] private int maxHealth = 10; 
     private int currentHealth;
-
     [SerializeField] private Slider healthSlider; 
     [SerializeField] private Image fillImage;
     private float fillValue; 
@@ -18,7 +15,6 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth; 
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
@@ -28,29 +24,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsFacingRight())
-        {
-            rigb.velocity = new Vector2(moveSpeed, 0f);
-        }
-        else 
-        {
-            rigb.velocity = new Vector2(-moveSpeed, 0f);
-        }
-    }
-
-    // Damage player when collided with 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Player"))
-        {
-            transform.localScale = new Vector2(-(Mathf.Sign(rigb.velocity.x)), transform.localScale.y);
-        }
-    }
-
-    // Checks which way the enemy is facing 
-    private bool IsFacingRight()
-    {
-        return transform.localScale.x > Mathf.Epsilon; 
+        
     }
 
     // Damages the enemy when hit by the player 
@@ -71,7 +45,7 @@ public class Enemy : MonoBehaviour
     private void EnemyDeath()
     {
         // Dealth Animation
-        Debug.Log("Enemy Died");
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
         Destroy(gameObject); 
     }
 
@@ -80,7 +54,6 @@ public class Enemy : MonoBehaviour
     {
         healthSlider.gameObject.SetActive(true);
         fillValue -= amount; 
-        Debug.Log(fillValue);
 
         healthSlider.value = fillValue; 
 
@@ -96,6 +69,10 @@ public class Enemy : MonoBehaviour
         if (healthSlider.value <= healthSlider.maxValue / 3)
         {
             fillImage.color = Color.red;
+        }
+        else if (healthSlider.value <= healthSlider.maxValue / 1.5)
+        {
+            fillImage.color = Color.yellow;
         }
     }
 

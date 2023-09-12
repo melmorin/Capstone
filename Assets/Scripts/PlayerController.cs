@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
     private float dirX; 
-    [SerializeField] private int maxHealth = 3; 
+    [SerializeField] private int maxHealth = 10; 
     [SerializeField] private int currentHealth; 
 
     [SerializeField] private Transform attackPoint; 
@@ -116,6 +116,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Enemy_Hitbox")
         {
+            TakeDamage(2);
+        }
+        else if (collision.tag == "Bullet")
+        {
             TakeDamage(1);
         }
     }
@@ -135,7 +139,6 @@ public class PlayerController : MonoBehaviour
     private void PlayerDeath()
     {
         Destroy(gameObject); 
-        Debug.Log("You died!");
     }
 
     // Update the UI healthbar 
@@ -157,6 +160,10 @@ public class PlayerController : MonoBehaviour
         if (healthSlider.value <= healthSlider.maxValue / 3)
         {
             fillImage.color = Color.red;
+        }
+        else if (healthSlider.value <= healthSlider.maxValue / 1.5)
+        {
+            fillImage.color = Color.yellow;
         }
     }
 
