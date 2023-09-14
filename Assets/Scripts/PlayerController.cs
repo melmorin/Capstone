@@ -6,28 +6,36 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
-    private Rigidbody2D rigb; 
-    private BoxCollider2D coll; 
-
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private Image fillImage;
     [SerializeField] private Slider healthSlider; 
-    private float fillValue; 
+    [SerializeField] private Transform attackPoint; 
+    [SerializeField] private LayerMask enemyLayers; 
+    [SerializeField] private TrailRenderer tr; 
 
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
-    private float dirX; 
+    [SerializeField] private float attackRange = 1.25f;
+    [SerializeField] private float attackRate = 2f; 
+
     [SerializeField] private int maxHealth = 10; 
     [SerializeField] private int currentHealth; 
-
-    [SerializeField] private Transform attackPoint; 
-    [SerializeField] private float attackRange = 1.25f;
-    [SerializeField] private LayerMask enemyLayers; 
     [SerializeField] private int attackDamage = 3; 
-    [SerializeField] private float attackRate = 2f; 
-    private float nextAttack = 0f; 
+
+    private Rigidbody2D rigb; 
+    private BoxCollider2D coll; 
 
     private bool facingRight = true; 
+    private bool canDash = true; 
+    private bool isDashing;
+
+    private float fillValue; 
+    private float dirX; 
+    private float nextAttack = 0f; 
+    private float dashingPower = 24f; 
+    private float dashingTime = 0.2f; 
+    private float dashingCooldown = 1f; 
+
 
     // Start is called before the first frame update
     private void Start()
@@ -43,12 +51,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
         // Movement and Jump
         dirX = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && OnGround())
+        if (Input.GetButtonDown("Jump"))
         { 
-            rigb.velocity = new Vector2(rigb.velocity.x, velocity); 
+            if (OnGround() && !isDashing)
+            {
+                rigb.velocity = new Vector2(rigb.velocity.x, velocity); 
+
+            }
+        }
+
+        if (Input.GetButtonDown("Fire3") && canDash)
+        {
+            StartCoroutine(Dash());
         }
 
         if (Time.time >= nextAttack)
@@ -87,6 +105,11 @@ public class PlayerController : MonoBehaviour
     // Moves the player at a fixed rate 
     private void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return; 
+        } 
+
         rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
 
         if (dirX < 0 && facingRight)
@@ -122,12 +145,23 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(1);
         }
+        else if (collision.tag == "Heart")
+        {
+            Destroy(collision.gameObject);
+            TakeDamage(-2);
+        }
     }
 
     // Take Damage 
     private void TakeDamage(int amount)
     {
-        currentHealth -= amount;
+        if (currentHealth == maxHealth && amount < 0)
+        {
+            return;
+        }
+
+        currentHealth = currentHealth - amount;
+
         UpdateHealth(amount); 
 
         if (currentHealth <= 0){
@@ -166,5 +200,22 @@ public class PlayerController : MonoBehaviour
             fillImage.color = Color.yellow;
         }
     }
+
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true; 
+        float originalGravity = rigb.gravityScale;
+        rigb.gravityScale = 0f; 
+        if (!facingRight) rigb.velocity = new Vector2(transform.localScale.x * -dashingPower, 0f);
+        else rigb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        tr.emitting = true; 
+        yield return new WaitForSeconds(dashingTime);
+        tr.emitting = false;
+        rigb.gravityScale = originalGravity; 
+        isDashing = false; 
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true; 
+    } 
 
 }

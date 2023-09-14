@@ -8,6 +8,7 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rigb;
 
     private Vector2 movement;
+    private bool facingRight = true; 
 
     // Update is called once per frame
     private void Update()
@@ -21,5 +22,21 @@ public class TopDownMovement : MonoBehaviour
     {
         // Movement 
         rigb.MovePosition(rigb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        if (movement.x < 0 && facingRight)
+        {
+            flip();
+        }
+        else if (movement.x > 0 && !facingRight)
+        {
+            flip();
+        }
+    }
+
+    // Flips the player depending on the movement direction
+    private void flip()
+    {
+        facingRight = !facingRight; 
+        transform.Rotate(0f, 180f, 0f);
     }
 }

@@ -33,6 +33,7 @@ public class LootBag : MonoBehaviour
         {
             GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnpos, Quaternion.identity);
             lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedItem.lootSprite; 
+            lootGameObject.gameObject.tag = droppedItem.lootType; 
         }
     }
 }
