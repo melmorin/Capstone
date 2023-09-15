@@ -8,6 +8,7 @@ TagManager:
   - Enemy_Hitbox
   - Bullet
   - Heart
+  - Game_Manager
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - Ground
   - Enemy_Hitbox
   - Bullet
-  - 
-  - 
-  - 
+  - Loot
+  - Player
+  - Loot_Bag
   - 
   - 
   - 

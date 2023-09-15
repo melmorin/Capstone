@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigb; 
     private BoxCollider2D coll; 
+    private GameManager gameManager; 
 
     private bool facingRight = true; 
     private bool canDash = true; 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth; 
         rigb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>(); 
+        gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
@@ -145,15 +147,19 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(1);
         }
-        else if (collision.tag == "Heart")
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Heart")
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             TakeDamage(-2);
         }
     }
 
     // Take Damage 
-    private void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         if (currentHealth == maxHealth && amount < 0)
         {
@@ -172,7 +178,8 @@ public class PlayerController : MonoBehaviour
     // Everything that happens when the player dies
     private void PlayerDeath()
     {
-        Destroy(gameObject); 
+        gameObject.SetActive(false); 
+        gameManager.EndGame();
     }
 
     // Update the UI healthbar 
