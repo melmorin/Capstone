@@ -206,6 +206,9 @@ public class PlayerController : MonoBehaviour
         {
             fillImage.color = Color.yellow;
         }
+        else { 
+            fillImage.color = Color.green;
+        }
     }
 
     private IEnumerator Dash()
