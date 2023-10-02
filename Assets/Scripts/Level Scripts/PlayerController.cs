@@ -54,16 +54,18 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
 
-        // Movement and Jump
+        // Movement
         dirX = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump"))
         { 
             if (OnGround() && !isDashing)
             {
-                rigb.velocity = new Vector2(rigb.velocity.x, velocity); 
+                Debug.Log(OnGround());
+                rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
 
             }
+        
         }
 
         if (Input.GetButtonDown("Fire3") && canDash)
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
     // Moves the player at a fixed rate 
     private void FixedUpdate()
     {
+
         if (isDashing)
         {
             return; 
