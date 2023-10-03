@@ -9,6 +9,9 @@ TagManager:
   - Bullet
   - Heart
   - Game_Manager
+  - Level_Text
+  - Event_System
+  - Level_Menu
   layers:
   - Default
   - TransparentFX

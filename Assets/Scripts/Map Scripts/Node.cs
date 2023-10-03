@@ -4,323 +4,142 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Node : MonoBehaviour {
-	[Header("Level Info")]
-	public string levelName;
-	public int levelNumber;
-
+	[Header("Level Info")] 
+	[SerializeField] private string levelName;
+	[SerializeField] private int levelNumber;
 
 	[Header("Node Destinations")]
-	public GameObject upDestination;
-	public GameObject downDestination;
-	public GameObject leftDestination;
-	public GameObject rightDestination;
+	[SerializeField] private GameObject upDestination;
+	[SerializeField] private GameObject downDestination;
+	[SerializeField] private GameObject leftDestination;
+	[SerializeField] private GameObject rightDestination;
 
+	private GameObject player; 
 
-	[Header("If this is the first level in your map, tick this:")]
-	public bool accessible;
-
-
-	[Header("Dependencies")]
-	public GameObject player;
+	private GameManager gameManager; 
+	private MapController mapController;  
 	private bool currentNode;
-	public Text levelNameText;
-	public GameObject levelMenu;
+	private float dirX; 
+	private float dirY; 
+	private float speed = 5f; 
 
 	// Use this for initialization
-	void Start () {
+	void Start() 
+	{
+		gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
+		mapController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<MapController>();
+
+		player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update() 
+	{
 		if (transform.position == player.transform.position) {
 			currentNode = true;
-	
-		} else {
+			if (!mapController.facingRight) mapController.Flip();
+		} 
+		
+		else {
 			currentNode = false;
-			levelMenu.SetActive (false);
+			mapController.SetMenuActive(false);
 		}
 
 		if (currentNode) 
 		{
-			levelNameText.text = levelName;
-			levelMenu.SetActive (true);
-		}
-
-		if (upDestination != null) 
-		{
-			if (upDestination.GetComponent<Node>()) 
+			if (levelName != "")
 			{
-				if (upDestination.GetComponent<Node> ().accessible == false) 
-				{
-					upDestination.SetActive (false);
-				}
+				mapController.SetMenuActive(true);
+			}
+			else 
+			{
+				mapController.SetMenuActive(false);
 			}
 
-			else if (upDestination.GetComponent<Corner>()) 
+			if (!gameManager.IsGamePaused())
 			{
-				if (upDestination.GetComponent<Corner> ().accessible == false) 
-				{
-					upDestination.SetActive (false);
-				}
-			}
 
-			else if (upDestination.GetComponent<Warp>()) 
-			{
-				if (upDestination.GetComponent<Warp> ().accessible == false) 
-				{
-					upDestination.SetActive (false);
-				}
-			}
-		}
+				dirX = Input.GetAxisRaw("Horizontal");
+				dirY = Input.GetAxisRaw("Vertical");
 
-		if (downDestination != null) 
-		{
-			if (downDestination.GetComponent<Node>()) 
-			{
-				if (downDestination.GetComponent<Node> ().accessible == false) 
+				if (dirY > 0) 
 				{
-					downDestination.SetActive (false);
-				}
-			} 
-
-			else if (downDestination.GetComponent<Corner>()) 
-			{
-				if (downDestination.GetComponent<Corner> ().accessible == false) 
-				{
-					downDestination.SetActive (false);
-				}
-			} 
-
-			else if (downDestination.GetComponent<Warp>()) 
-			{
-				if (downDestination.GetComponent<Warp> ().accessible == false) 
-				{
-					downDestination.SetActive (false);
-				}
-
-			}
-		}
-
-		if (leftDestination != null) 
-		{
-			if (leftDestination.GetComponent<Node>()) 
-			{
-				if (leftDestination.GetComponent<Node> ().accessible == false) 
-				{
-					leftDestination.SetActive (false);
-				}
-			} 
-
-			else if (leftDestination.GetComponent<Corner>()) 
-			{
-				if (leftDestination.GetComponent<Corner> ().accessible == false) 
-				{
-					leftDestination.SetActive (false);
-				}
-			} 
-
-			else if (leftDestination.GetComponent<Warp>()) 
-			{
-				if (leftDestination.GetComponent<Warp> ().accessible == false)
-				{
-					leftDestination.SetActive (false);
-				}
-			}
-		}
-
-		if (rightDestination != null) 
-		{
-			if (rightDestination.GetComponent<Node>()) 
-			{
-				if (rightDestination.GetComponent<Node> ().accessible == false) 
-				{
-					rightDestination.SetActive (false);
-				}
-			} 
-
-			else if (rightDestination.GetComponent<Corner>()) 
-			{		
-				if (rightDestination.GetComponent<Corner> ().accessible == false) 
-				{
-					rightDestination.SetActive (false);
-				}
-			} 
-
-			else if (rightDestination.GetComponent<Warp>()) 
-			{
-				if (rightDestination.GetComponent<Warp> ().accessible == false) 
-				{
-					rightDestination.SetActive (false);
-				}
-			}
-		}
-				
-		else
-		{
-			accessible = true;
-			if (upDestination != null) 
-			{
-				upDestination.SetActive (true);
-				if (upDestination.GetComponent<Node> ()) 
-				{
-					upDestination.GetComponent<Node> ().accessible = true;
-				} 
-				else if (upDestination.GetComponent<Corner> ()) 
-				{
-					upDestination.GetComponent<Corner> ().accessible = true;
-				} 
-				else if (upDestination.GetComponent<Warp> ()) 
-				{
-					upDestination.GetComponent<Warp> ().accessible = true;
-				}
-			}
-
-			if (downDestination != null) 
-			{
-				downDestination.SetActive (true);
-				if (downDestination.GetComponent<Node> ()) 
-				{
-					downDestination.GetComponent<Node> ().accessible = true;
-				} 
-				else if (downDestination.GetComponent<Corner> ()) 
-				{
-					downDestination.GetComponent<Corner> ().accessible = true;
-				} 
-				else if (downDestination.GetComponent<Warp> ()) 
-				{
-					downDestination.GetComponent<Warp> ().accessible = true;
-				}
-			}
-
-			if (leftDestination != null) 
-			{
-				leftDestination.SetActive (true);
-				if (leftDestination.GetComponent<Node> ()) 
-				{
-					leftDestination.GetComponent<Node> ().accessible = true;
-				} 
-				else if (leftDestination.GetComponent<Corner> ()) 
-				{
-					leftDestination.GetComponent<Corner> ().accessible = true;
-				}
-				else if (leftDestination.GetComponent<Warp> ()) 
-				{
-					leftDestination.GetComponent<Warp> ().accessible = true;
-				}
-			}
-
-			if (rightDestination != null) 
-			{
-				rightDestination.SetActive (true);
-				if (rightDestination.GetComponent<Node> ()) 
-				{
-					rightDestination.GetComponent<Node> ().accessible = true;
-				} 
-				else if (rightDestination.GetComponent<Corner> ()) 
-				{
-					rightDestination.GetComponent<Corner> ().accessible = true;
-				} 
-				else if (rightDestination.GetComponent<Warp> ()) 
-				{
-					rightDestination.GetComponent<Warp> ().accessible = true;
-				}
-			}				
-		}
-
-		if (Input.GetKeyDown (KeyCode.UpArrow)) 
-		{
-			if (upDestination != null) 
-			{
-				if (upDestination.activeInHierarchy) 
-				{
-					currentNode = false;
-					Invoke ("PlayButtonDisable", 1 / 6f);
-					StartCoroutine (DoUp ()); 
-				}
-			}
-		} 
-
-		else {
-			if (Input.GetKeyDown (KeyCode.DownArrow)) 
-			{
-				if (downDestination != null) 
-				{
-					if (downDestination.activeInHierarchy)
+					if (upDestination != null) 
 					{
 						currentNode = false;
-						Invoke ("PlayButtonDisable", 1 / 6f);
-						StartCoroutine (DoDown ()); 
+						StartCoroutine(DoUp()); 
 					}
-				}
-			} 
+				} 
 
-			else {
-				if (Input.GetKeyDown (KeyCode.LeftArrow)) 
+				else if (dirY < 0) 
+				{
+					if (downDestination != null) 
+					{
+						currentNode = false;
+						StartCoroutine(DoDown()); 
+					}
+				} 
+
+				else if (dirX < 0) 
 				{
 					if (leftDestination != null) 
 					{
-						if (leftDestination.activeInHierarchy) 
-						{
-							currentNode = false;
-							Invoke ("PlayButtonDisable", 1 / 6f);
-							StartCoroutine (DoLeft ()); 
-						}
+						currentNode = false;
+						if (mapController.facingRight) mapController.Flip();
+						StartCoroutine(DoLeft()); 
 					}
 				} 
 
-				else {
-					if (Input.GetKeyDown (KeyCode.RightArrow)) 
+				else if (dirX > 0) 
+				{
+					if (rightDestination != null) 
 					{
-						if (rightDestination != null) 
-						{
-							if (rightDestination.activeInHierarchy) 
-							{
-								currentNode = false;
-								Invoke ("PlayButtonDisable", 1 / 6f);
-								StartCoroutine (DoRight ()); 
-							}
-						}
+						currentNode = false;
+						if (!mapController.facingRight) mapController.Flip();
+						StartCoroutine(DoRight()); 
 					}
-				}
+				}								
 			}
-		}
+		}	
 	}
 
 
 	IEnumerator DoUp()
 	{
-		yield return new WaitForSeconds (1/60);
+		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != upDestination.transform.position) 
 		{
-			player.transform.position = Vector3.MoveTowards (player.transform.position, upDestination.transform.position, 8f * Time.deltaTime);
+			player.transform.position = Vector3.MoveTowards(player.transform.position, upDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
 	}
+
 	IEnumerator DoDown()
 	{
-		yield return new WaitForSeconds (1/60);
+		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != downDestination.transform.position) 
 		{
-			player.transform.position = Vector3.MoveTowards (player.transform.position, downDestination.transform.position, 8f * Time.deltaTime);
+			player.transform.position = Vector3.MoveTowards(player.transform.position, downDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
 	}
+
 	IEnumerator DoLeft()
 	{
-		yield return new WaitForSeconds (1/60);
+		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != leftDestination.transform.position) 
 		{
-			player.transform.position = Vector3.MoveTowards (player.transform.position, leftDestination.transform.position, 8f * Time.deltaTime);
+			player.transform.position = Vector3.MoveTowards(player.transform.position, leftDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
 	}
+
 	IEnumerator DoRight()
 	{	
-		yield return new WaitForSeconds (1/60);
+		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != rightDestination.transform.position) 
 		{
-			player.transform.position = Vector3.MoveTowards (player.transform.position, rightDestination.transform.position, 8f * Time.deltaTime);
+			player.transform.position = Vector3.MoveTowards(player.transform.position, rightDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}		
 	}

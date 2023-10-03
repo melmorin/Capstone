@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 148758715}
   m_Layer: 5
   m_Name: levelText
-  m_TagString: Untagged
+  m_TagString: Level_Text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 540288480}
   m_Layer: 0
   m_Name: test_player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1525,15 +1525,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: Level 1
-  levelNumber: 0
+  levelNumber: 1
   upDestination: {fileID: 0}
   downDestination: {fileID: 0}
   leftDestination: {fileID: 1553515273}
   rightDestination: {fileID: 0}
-  accessible: 0
-  player: {fileID: 540288478}
-  levelNameText: {fileID: 0}
-  levelMenu: {fileID: 1602524578}
 --- !u!4 &1226749231
 Transform:
   m_ObjectHideFlags: 0
@@ -2293,19 +2289,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2068524924}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1480157351}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1384908044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2491,6 +2475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1480157352}
   - component: {fileID: 1480157351}
+  - component: {fileID: 1480157353}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Game_Manager
@@ -2527,6 +2512,21 @@ Transform:
   m_Father: {fileID: 1741263396}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480157353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480157350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a960c09d28eb4fa82060486de5eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 540288478}
+  startPoint: {fileID: 2084024782}
+  facingRight: 1
 --- !u!1 &1519280046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,11 +2591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 1226749229}
-  up: 0
-  down: 0
-  left: 0
-  right: 1
-  accessible: 1
+  destinationReverse: {fileID: 2084024782}
   player: {fileID: 540288478}
 --- !u!4 &1553515275
 Transform:
@@ -2625,7 +2621,7 @@ GameObject:
   - component: {fileID: 1570073342}
   m_Layer: 0
   m_Name: EventSystem
-  m_TagString: Untagged
+  m_TagString: Event_System
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2831,11 +2827,11 @@ GameObject:
   - component: {fileID: 1602524580}
   m_Layer: 5
   m_Name: levelMenu
-  m_TagString: Untagged
+  m_TagString: Level_Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1602524579
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3211,7 +3207,6 @@ GameObject:
   - component: {fileID: 1745686518}
   - component: {fileID: 1745686522}
   - component: {fileID: 1745686521}
-  - component: {fileID: 1745686520}
   - component: {fileID: 1745686519}
   m_Layer: 0
   m_Name: Main Camera
@@ -3228,7 +3223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745686517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7835872, y: -2.0395381, z: -9.973317}
+  m_LocalPosition: {x: -2.6235874, y: -4.8895383, z: -9.973317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3269,18 +3264,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1745686520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1745686517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81f34ede2735afb4581e200f7b8f2314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!81 &1745686521
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3444,7 +3427,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790467086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7835872, y: -2.0395381, z: -9.973317}
+  m_LocalPosition: {x: -2.6235874, y: -4.8895383, z: -9.973317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3471,7 +3454,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 540288479}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -3935,10 +3918,6 @@ MonoBehaviour:
   downDestination: {fileID: 0}
   leftDestination: {fileID: 0}
   rightDestination: {fileID: 0}
-  accessible: 0
-  player: {fileID: 540288478}
-  levelNameText: {fileID: 0}
-  levelMenu: {fileID: 0}
 --- !u!212 &2084024786
 SpriteRenderer:
   m_ObjectHideFlags: 0
