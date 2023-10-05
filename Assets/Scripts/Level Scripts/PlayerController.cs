@@ -6,25 +6,41 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
+    [Header ("Dependancies")]
     [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private LayerMask enemyLayers; 
     [SerializeField] private Image fillImage;
     [SerializeField] private Slider healthSlider; 
-    [SerializeField] private Transform attackPoint; 
-    [SerializeField] private LayerMask enemyLayers; 
     [SerializeField] private TrailRenderer tr; 
+    [SerializeField] private Transform attackPoint; 
+    [SerializeField] private Transform firePoint; 
+    [SerializeField] private GameObject bulletPrefab;
 
+    [Header ("Player Settings")]
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
-    [SerializeField] private float attackRange = 1.25f;
-    [SerializeField] private float attackRate = 2f; 
-
     [SerializeField] private int maxHealth = 10; 
     [SerializeField] private int currentHealth; 
+
+    [Header ("Melee Settings")]
+    [SerializeField] private float attackRange = 1.25f;
+    [SerializeField] private float attackRate = 2f; 
     [SerializeField] private int attackDamage = 3; 
+
+    [Header ("Range Settings")]
+    [SerializeField] private float chargeSpeed = 2f; 
+    [SerializeField] private float maxSpeed = 10f; 
+    public float bulletSpeed = 0; 
+    
+    private bool isCharging = false; 
+
+    private float heathCooldown = .5f; 
+    private bool invincibility; 
 
     private Rigidbody2D rigb; 
     private BoxCollider2D coll; 
     private GameManager gameManager; 
+    private GameObject bullet; 
 
     private bool facingRight = true; 
     private bool canDash = true; 
@@ -36,7 +52,6 @@ public class PlayerController : MonoBehaviour
     private float dashingPower = 24f; 
     private float dashingTime = 0.2f; 
     private float dashingCooldown = 1f; 
-
 
     // Start is called before the first frame update
     private void Start()
@@ -61,9 +76,7 @@ public class PlayerController : MonoBehaviour
         { 
             if (OnGround() && !isDashing)
             {
-                Debug.Log(OnGround());
                 rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
-
             }
         
         }
@@ -81,6 +94,11 @@ public class PlayerController : MonoBehaviour
                 MeleeAttack();
                 nextAttack = Time.time + 1f / attackRate; 
             }
+        }
+
+        if (Input.GetButtonDown("Fire2") && !isCharging)
+        {
+            Shoot(); 
         }
     }  
 
@@ -117,18 +135,18 @@ public class PlayerController : MonoBehaviour
 
         rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
 
-        if (dirX < 0 && facingRight)
+        if (dirX < 0 && facingRight) 
         {
-            flip();
+            Flip();
         }
         else if (dirX > 0 && !facingRight)
         {
-            flip();
+            Flip();
         }
     }
 
     // Flips the player depending on the movement direction
-    private void flip()
+    private void Flip()
     {
         facingRight = !facingRight; 
         transform.Rotate(0f, 180f, 0f);
@@ -169,9 +187,16 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        currentHealth = currentHealth - amount;
+        if (!invincibility)
+        {
+             currentHealth = currentHealth - amount;
+            UpdateHealth(amount); 
+        }
 
-        UpdateHealth(amount); 
+        if (amount > 0)
+        {
+            StartCoroutine(HealthCooldown());
+        }
 
         if (currentHealth <= 0){
             PlayerDeath();
@@ -214,6 +239,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Dashes the player 
     private IEnumerator Dash()
     {
         canDash = false;
@@ -229,6 +255,27 @@ public class PlayerController : MonoBehaviour
         isDashing = false; 
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true; 
+    }
+
+    // Sets a timer before the player can take more damage 
+    private IEnumerator HealthCooldown()
+    {
+        invincibility = true; 
+        yield return new WaitForSeconds(heathCooldown);
+        invincibility = false; 
     } 
 
+    // Shoots a projectile 
+    private void Shoot()
+    {
+        bulletSpeed = 0; 
+        isCharging = true; 
+        while (Input.GetButton("Fire2") && bulletSpeed <= maxSpeed)
+        {
+            bulletSpeed += Time.deltaTime * chargeSpeed;
+        }
+        Debug.Log(bulletSpeed); 
+        bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        isCharging = false; 
+    }
 }

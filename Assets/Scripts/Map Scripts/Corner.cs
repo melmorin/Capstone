@@ -10,11 +10,14 @@ public class Corner : MonoBehaviour {
 	[Header("Corner Destination Reverse")]
 	[SerializeField] private GameObject destinationReverse;
 
-	[Header("Dependencies")]
-	[SerializeField] private GameObject player;
-
+	private GameObject player;
 	private bool flip = false;
 	private float speed = 5f;  
+
+	void Start()
+	{
+		player = GameObject.FindGameObjectWithTag("Player");
+	}
 
 	// Update is called once per frame
 	void Update () 

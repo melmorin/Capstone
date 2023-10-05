@@ -35,25 +35,26 @@ public class Node : MonoBehaviour {
 	// Update is called once per frame
 	void Update() 
 	{
-		if (transform.position == player.transform.position) {
+		if (transform.position == player.transform.position) 
+		{
 			currentNode = true;
 			if (!mapController.facingRight) mapController.Flip();
 		} 
 		
-		else {
+		else 
+		{
 			currentNode = false;
-			mapController.SetMenuActive(false);
 		}
 
 		if (currentNode) 
 		{
-			if (levelName != "")
+			if (levelName == "")
 			{
-				mapController.SetMenuActive(true);
+				mapController.SetMenuActive(false);
 			}
 			else 
 			{
-				mapController.SetMenuActive(false);
+				mapController.SetMenuActive(true, levelName, levelNumber);
 			}
 
 			if (!gameManager.IsGamePaused())
@@ -67,6 +68,7 @@ public class Node : MonoBehaviour {
 					if (upDestination != null) 
 					{
 						currentNode = false;
+						mapController.SetMenuActive(false);
 						StartCoroutine(DoUp()); 
 					}
 				} 
@@ -76,6 +78,7 @@ public class Node : MonoBehaviour {
 					if (downDestination != null) 
 					{
 						currentNode = false;
+						mapController.SetMenuActive(false);
 						StartCoroutine(DoDown()); 
 					}
 				} 
@@ -86,6 +89,7 @@ public class Node : MonoBehaviour {
 					{
 						currentNode = false;
 						if (mapController.facingRight) mapController.Flip();
+						mapController.SetMenuActive(false);
 						StartCoroutine(DoLeft()); 
 					}
 				} 
@@ -96,6 +100,7 @@ public class Node : MonoBehaviour {
 					{
 						currentNode = false;
 						if (!mapController.facingRight) mapController.Flip();
+						mapController.SetMenuActive(false);
 						StartCoroutine(DoRight()); 
 					}
 				}								

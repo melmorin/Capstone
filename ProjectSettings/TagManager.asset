@@ -12,6 +12,7 @@ TagManager:
   - Level_Text
   - Event_System
   - Level_Menu
+  - Dialogue_Panel
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Loot
   - Player
   - Loot_Bag
-  - 
-  - 
+  - Character
+  - Player_Bullet
   - 
   - 
   - 
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2270399519
+    locked: 0
+  - name: NPC
+    uniqueID: 2539899445
     locked: 0
