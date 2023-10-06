@@ -23,6 +23,7 @@ public class MapController : MonoBehaviour
         player.transform.position = startPoint.transform.position; 
     }
 
+    // Called when activated 
     void Awake()
     {
         playButton.onClick.AddListener(PlayGame);
@@ -35,6 +36,7 @@ public class MapController : MonoBehaviour
         player.transform.Rotate(0f, 180f, 0f);
     }
 
+    // Displays the menu for a level 
     public void SetMenuActive(bool active, string levelName = "", int node = -1)
     {
         levelMenu.SetActive(active); 
@@ -42,14 +44,9 @@ public class MapController : MonoBehaviour
         currentNodeNumber = node; 
     }
 
+    // Loads the scene to play a level 
     void PlayGame()
     {
         SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

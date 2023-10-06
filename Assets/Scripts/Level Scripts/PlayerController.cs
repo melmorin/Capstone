@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
     [SerializeField] private int maxHealth = 10; 
-    [SerializeField] private int currentHealth; 
+    [SerializeField] private float heathCooldown = .5f; 
+    [SerializeField] private float dashingPower = 24f; 
+    [SerializeField] private float dashingTime = 0.2f; 
+    [SerializeField] private float dashingCooldown = 1f; 
 
     [Header ("Melee Settings")]
     [SerializeField] private float attackRange = 1.25f;
@@ -28,30 +31,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int attackDamage = 3; 
 
     [Header ("Range Settings")]
-    [SerializeField] private float chargeSpeed = 2f; 
-    [SerializeField] private float maxSpeed = 10f; 
-    public float bulletSpeed = 0; 
-    
-    private bool isCharging = false; 
+    [SerializeField] private float chargeSpeed = .04f; 
+    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float shootDelay = .25f;  
 
-    private float heathCooldown = .5f; 
-    private bool invincibility; 
+    [Header ("Runtime Vars")]
+    public float bulletSpeed; 
+   
+    // Private Ints
+    private int currentHealth; 
 
+    // Private Components 
     private Rigidbody2D rigb; 
     private BoxCollider2D coll; 
     private GameManager gameManager; 
     private GameObject bullet; 
 
+    // Private bools 
     private bool facingRight = true; 
     private bool canDash = true; 
     private bool isDashing;
+    private bool isCharging = false; 
+    private bool invincibility; 
 
+    // Private float 
     private float fillValue; 
     private float dirX; 
     private float nextAttack = 0f; 
-    private float dashingPower = 24f; 
-    private float dashingTime = 0.2f; 
-    private float dashingCooldown = 1f; 
 
     // Start is called before the first frame update
     private void Start()
@@ -68,10 +74,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
         // Movement
         dirX = Input.GetAxisRaw("Horizontal");
 
+        // Jump 
         if (Input.GetButtonDown("Jump"))
         { 
             if (OnGround() && !isDashing)
@@ -81,14 +87,15 @@ public class PlayerController : MonoBehaviour
         
         }
 
+        // Dash 
         if (Input.GetButtonDown("Fire3") && canDash)
         {
             StartCoroutine(Dash());
         }
 
+        // Melee attack
         if (Time.time >= nextAttack)
         {
-            // Melee attack
             if (Input.GetButtonDown("Fire1"))
             {
                 MeleeAttack();
@@ -96,16 +103,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Ranged Attack 
         if (Input.GetButtonDown("Fire2") && !isCharging)
         {
-            Shoot(); 
+            StartCoroutine(Shoot()); 
         }
     }  
 
     // Function for a Melee attack
     private void MeleeAttack()
     {
-        //Play animation when created 
         Collider2D[] hitenemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); 
 
         foreach(Collider2D enemy in hitenemies)
@@ -127,7 +134,6 @@ public class PlayerController : MonoBehaviour
     // Moves the player at a fixed rate 
     private void FixedUpdate()
     {
-
         if (isDashing)
         {
             return; 
@@ -158,6 +164,7 @@ public class PlayerController : MonoBehaviour
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
+    // Checks to see if the player enters a trigger 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy_Hitbox")
@@ -167,15 +174,6 @@ public class PlayerController : MonoBehaviour
         else if (collision.tag == "Bullet")
         {
             TakeDamage(1);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Heart")
-        {
-            Destroy(other.gameObject);
-            TakeDamage(-2);
         }
     }
 
@@ -266,16 +264,17 @@ public class PlayerController : MonoBehaviour
     } 
 
     // Shoots a projectile 
-    private void Shoot()
+    private IEnumerator Shoot()
     {
         bulletSpeed = 0; 
         isCharging = true; 
-        while (Input.GetButton("Fire2") && bulletSpeed <= maxSpeed)
+        while (Input.GetButton("Fire2") && bulletSpeed < maxSpeed)
         {
-            bulletSpeed += Time.deltaTime * chargeSpeed;
-        }
-        Debug.Log(bulletSpeed); 
+            bulletSpeed += chargeSpeed;
+            yield return null; 
+        }     
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        yield return new WaitForSeconds(shootDelay); 
         isCharging = false; 
     }
 }

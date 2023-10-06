@@ -14,11 +14,13 @@ public class NPC : MonoBehaviour
     private bool playerIsClose;
     private DialogueController dialogueController;
 
+    // Runs before the first frame 
     void Start()
     {
         dialogueController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<DialogueController>(); 
     }
 
+    // Runs every frame 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.E) && playerIsClose)
@@ -37,13 +39,17 @@ public class NPC : MonoBehaviour
             }
         }
 
-        if (dialogueController.dialogueText.text == dialogue[dialogueController.index])
+        if (dialogue.Length - 1 >= dialogueController.index)
         {
-            dialogueController.continueButton.SetActive(true); 
-            dialogueController.skipButton.SetActive(false); 
+            if (dialogueController.dialogueText.text == dialogue[dialogueController.index])
+            {
+                dialogueController.continueButton.SetActive(true); 
+                dialogueController.skipButton.SetActive(false); 
+            }
         }
     }
 
+    // Checks when the player enters the trigger box 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")) 
@@ -52,6 +58,7 @@ public class NPC : MonoBehaviour
         }
     }
 
+    // Checks when the player leaves the trigger box 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

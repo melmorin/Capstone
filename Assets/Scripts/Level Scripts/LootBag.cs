@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class LootBag : MonoBehaviour
 {
+    [Header ("Dependancies")]
     [SerializeField] private GameObject droppedItemPrefab; 
     [SerializeField] private List<Loot> lootList = new List<Loot>();
 
+    // Picks a random piece of loot from the list of possibilities 
     private Loot GetDroppedItem()
     {
         int randomNumber = Random.Range(1, 101);
@@ -26,6 +28,7 @@ public class LootBag : MonoBehaviour
         return null; 
     }
 
+    // Instantiates the dropped loot in the scene 
     public void InstantiateLoot(Vector3 spawnpos)
     {
         Loot droppedItem = GetDroppedItem();

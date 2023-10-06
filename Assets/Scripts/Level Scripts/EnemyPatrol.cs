@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
 {
+    [Header ("Settings")]
     [SerializeField] private float moveSpeed = 1f; 
     private Rigidbody2D rigb;
 

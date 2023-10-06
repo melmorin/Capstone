@@ -9,6 +9,7 @@ public class Loot : ScriptableObject
    public string lootType; 
    public int dropChance; 
 
+    // Constructor for the Loot scriptable object 
     public Loot(string lootType, int dropChance)
     {
         this.lootType = lootType;

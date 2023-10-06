@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyFollowPlayer : MonoBehaviour
 {
+    [Header ("Settings")]
     [SerializeField] private float moveSpeed = 2;
     [SerializeField] private float lineOfSite = 10;
+
     private Transform player; 
     private EnemyShoot enemyShoot; 
     private bool canMove = true; 
@@ -33,6 +35,7 @@ public class EnemyFollowPlayer : MonoBehaviour
         }
     }
 
+    // Draws the enemies field of view in scene editor 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green; 

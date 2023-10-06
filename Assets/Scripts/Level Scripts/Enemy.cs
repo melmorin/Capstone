@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-
-    [SerializeField] private int maxHealth = 10; 
-    private int currentHealth;
+    [Header ("Dependancies")]
     [SerializeField] private Slider healthSlider; 
     [SerializeField] private Image fillImage;
+
+    [Header ("Settings")]
+    [SerializeField] private int maxHealth = 10; 
+
+    private int currentHealth;
     private float fillValue; 
 
     // Start is called before the first frame update
@@ -21,19 +24,11 @@ public class Enemy : MonoBehaviour
         fillValue = maxHealth; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Damages the enemy when hit by the player 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-
         UpdateHealth(damage); 
-        // Damage Animation
 
         if (currentHealth <= 0)
         {
@@ -44,7 +39,6 @@ public class Enemy : MonoBehaviour
     // Performs all code related to enemy death
     private void EnemyDeath()
     {
-        // Dealth Animation
         GetComponent<LootBag>().InstantiateLoot(transform.position);
         Destroy(gameObject); 
     }

@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
-    [SerializeField] private float shootingRange;
+    [Header ("Dependancies")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject bulletParent; 
+    
+    [Header ("Settings")]
+    [SerializeField] private float shootingRange;
+    [SerializeField] private float fireRate = 1; 
+
+    [Header ("Runtime Vars")]
+    private float nextFireTime;
     private Transform player; 
     public bool canMove; 
-    [SerializeField] private float fireRate = 1; 
-    private float nextFireTime;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +44,7 @@ public class EnemyShoot : MonoBehaviour
         }
     }
 
+    // Draws the circle that the enemy shoots from in the scene editor 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red; 

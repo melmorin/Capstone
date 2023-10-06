@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private GameObject target; 
+    [Header ("Settings")]
     [SerializeField] private float speed; 
+    
     private Rigidbody2D bulletRb; 
+    private GameObject target; 
 
     // Start is called before the first frame update
     void Start()
@@ -18,18 +20,12 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject, 4); 
     }
 
-    // If bullet its player it disappears 
+    // If bullet hits player it disappears 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" || collision.tag == "Player_Bullet")
         {
             Destroy(gameObject);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

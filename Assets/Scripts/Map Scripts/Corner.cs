@@ -14,6 +14,7 @@ public class Corner : MonoBehaviour {
 	private bool flip = false;
 	private float speed = 5f;  
 
+	// Start is called before the first frame 
 	void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -28,6 +29,7 @@ public class Corner : MonoBehaviour {
 		}
 	}
 
+	// Function that moves the player towards a destination 
 	IEnumerator DoFollow()
 	{
 		yield return new WaitForSeconds (1/60);

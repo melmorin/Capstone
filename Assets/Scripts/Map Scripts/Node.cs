@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Node : MonoBehaviour {
+
 	[Header("Level Info")] 
 	[SerializeField] private string levelName;
 	[SerializeField] private int levelNumber;
@@ -15,7 +16,6 @@ public class Node : MonoBehaviour {
 	[SerializeField] private GameObject rightDestination;
 
 	private GameObject player; 
-
 	private GameManager gameManager; 
 	private MapController mapController;  
 	private bool currentNode;
@@ -28,7 +28,6 @@ public class Node : MonoBehaviour {
 	{
 		gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
 		mapController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<MapController>();
-
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
@@ -48,6 +47,7 @@ public class Node : MonoBehaviour {
 
 		if (currentNode) 
 		{
+			// Activates menu if level if available 
 			if (levelName == "")
 			{
 				mapController.SetMenuActive(false);
@@ -57,6 +57,7 @@ public class Node : MonoBehaviour {
 				mapController.SetMenuActive(true, levelName, levelNumber);
 			}
 
+			// Checks to see if any destination is null 
 			if (!gameManager.IsGamePaused())
 			{
 
@@ -108,7 +109,7 @@ public class Node : MonoBehaviour {
 		}	
 	}
 
-
+	// Moves the player to the up destination 
 	IEnumerator DoUp()
 	{
 		yield return new WaitForSeconds(1/60);
@@ -119,6 +120,7 @@ public class Node : MonoBehaviour {
 		}
 	}
 
+	// Moves the player to the down destination 
 	IEnumerator DoDown()
 	{
 		yield return new WaitForSeconds(1/60);
@@ -129,6 +131,7 @@ public class Node : MonoBehaviour {
 		}
 	}
 
+	// Moves the player to the left destination 
 	IEnumerator DoLeft()
 	{
 		yield return new WaitForSeconds(1/60);
@@ -139,6 +142,7 @@ public class Node : MonoBehaviour {
 		}
 	}
 
+	// Moves the player to the right destination 
 	IEnumerator DoRight()
 	{	
 		yield return new WaitForSeconds(1/60);

@@ -13,6 +13,7 @@ TagManager:
   - Event_System
   - Level_Menu
   - Dialogue_Panel
+  - Player_Bullet
   layers:
   - Default
   - TransparentFX

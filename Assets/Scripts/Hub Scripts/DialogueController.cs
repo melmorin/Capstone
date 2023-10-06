@@ -23,11 +23,13 @@ public class DialogueController : MonoBehaviour
     public string[] currentDialogue;
     public Coroutine typingRoutine; 
 
+    // Adds listener to the continue button for NextLine()
     void Awake()
     {
         continueButton.GetComponent<Button>().onClick.AddListener(Nextline);
     }
 
+    // Moves onto the next line of dialogue or closes window 
     private void Nextline()
     {
         continueButton.SetActive(false); 
@@ -44,12 +46,14 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    // Stops the typing animation if the player skips the text
     public void SkipText()
     {
         dialogueText.text = currentDialogue[index];
         StopCoroutine(typingRoutine); 
     }
 
+    // The typing animation 
     public IEnumerator Typing()
     {
         foreach(char letter in currentDialogue[index].ToCharArray())
@@ -59,10 +63,14 @@ public class DialogueController : MonoBehaviour
         }
     }
 
+    // Closes down entire dialogue menu 
     public void ZeroText()
     {
         dialogueText.text = "";
         index = 0; 
-        dialoguePanel.SetActive(false);
+        if (dialoguePanel != null)
+        {
+            dialoguePanel.SetActive(false);
+        }
     }
 }

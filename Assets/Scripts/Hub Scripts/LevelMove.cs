@@ -8,6 +8,7 @@ public class LevelMove : MonoBehaviour
 
     [SerializeField] private int screenBuildIndex;
 
+    // Moves the player to another scene based on an index 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player") 
