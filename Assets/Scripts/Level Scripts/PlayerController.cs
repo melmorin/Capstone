@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     [Header ("Range Settings")]
     [SerializeField] private float chargeSpeed = .04f; 
+    [SerializeField] private float chargeInterval = .005f; 
     [SerializeField] private float maxSpeed = 20f;
     [SerializeField] private float shootDelay = .25f;  
 
@@ -271,7 +272,7 @@ public class PlayerController : MonoBehaviour
         while (Input.GetButton("Fire2") && bulletSpeed < maxSpeed)
         {
             bulletSpeed += chargeSpeed;
-            yield return null; 
+            yield return new WaitForSeconds(chargeInterval); 
         }     
         bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         yield return new WaitForSeconds(shootDelay); 
