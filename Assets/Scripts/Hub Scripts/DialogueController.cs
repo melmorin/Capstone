@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 using TMPro; 
+using System; 
 
 public class DialogueController : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class DialogueController : MonoBehaviour
         index = 0; 
         if (dialoguePanel != null)
         {
-            dialoguePanel.SetActive(false);
+            dialoguePanel.SetActive(false);          
         }
     }
 }

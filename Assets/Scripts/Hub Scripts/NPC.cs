@@ -27,6 +27,7 @@ public class NPC : MonoBehaviour
         {
             if (dialogueController.dialoguePanel.activeInHierarchy)
             {
+                StopCoroutine(dialogueController.typingRoutine);
                 dialogueController.ZeroText(); 
             }
             else 
