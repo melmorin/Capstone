@@ -6,45 +6,70 @@ public class TopDownMovement : MonoBehaviour
 {
     [Header ("Settings")]
     [SerializeField] private float moveSpeed = 5f; 
+    private Animator anim; 
     private Rigidbody2D rigb;
     private Vector2 movement;
-    private bool facingRight = true; 
+    private Vector2 lastDirection; 
+    private bool facingRight = false; 
 
     // Start is called before the first frame 
     void Start()
     {
-        rigb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>(); 
+        anim = GetComponent<Animator>(); 
+        rigb = GetComponent<Rigidbody2D>(); 
     }
 
-    // Update is called once per frame
+    // Update calls once per frame 
     private void Update()
     {
-        // Input 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        ProcessInputs();
+        Animate(); 
+
+        if (movement.x < 0 && !facingRight || movement.x > 0 && facingRight)
+        {
+            Flip();
+        }
     }
 
-    // Updates on fixed intervals 
+    // FixedUpdate is called on Intervals 
     private void FixedUpdate()
     {
-        // Movement 
-        rigb.MovePosition(rigb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rigb.velocity = movement * moveSpeed; 
+    }
 
-        // Flip mechanic 
-        if (movement.x < 0 && facingRight)
-        {
-            flip();
-        }
-        else if (movement.x > 0 && !facingRight)
-        {
-            flip();
-        }
+    // Animates the player 
+    private void Animate()
+    {
+        anim.SetFloat("speed_x", movement.x);
+        anim.SetFloat("speed_y", movement.y);
+        anim.SetFloat("speed_magnitude", movement.magnitude);
+        anim.SetFloat("last_x", lastDirection.x);
+        anim.SetFloat("last_y", lastDirection.y);
     }
 
     // Flips the player depending on the movement direction
-    private void flip()
+    private void Flip()
     {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1; 
+        transform.localScale = scale;
         facingRight = !facingRight; 
-        transform.Rotate(0f, 180f, 0f);
+    }
+
+    // Input Function 
+    void ProcessInputs()
+    {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+
+        if ((moveX == 0 & moveY == 0) && (movement.x !=0 || movement.y !=0))
+        {
+            lastDirection = movement; 
+        }
+
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        movement.Normalize();
     }
 }
