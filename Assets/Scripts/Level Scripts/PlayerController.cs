@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigb; 
     private BoxCollider2D coll; 
     private GameManager gameManager; 
+    private Animator anim; 
     private GameObject bullet; 
 
     // Private bools 
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth; 
         rigb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>(); 
+        anim = GetComponent<Animator>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
@@ -77,12 +79,14 @@ public class PlayerController : MonoBehaviour
     {
         // Movement
         dirX = Input.GetAxisRaw("Horizontal");
+        anim.SetFloat("speed", Mathf.Abs(dirX)); 
 
         // Jump 
         if (Input.GetButtonDown("Jump"))
         { 
             if (OnGround() && !isDashing)
             {
+                anim.SetBool("Jumping", true); 
                 rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
             }
         
@@ -110,6 +114,23 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Shoot()); 
         }
     }  
+
+    // Code that runs when the jump animation has ended 
+    public void JumpOver()
+    {
+        anim.SetBool("Jumping", false);
+
+        if (OnGround())
+        {
+            anim.SetBool("Hit_Ground", true); 
+        } 
+    }
+
+    // Code that runs when the player has finished the hitground animation
+    public void HitGround()
+    {
+        anim.SetBool("Hit_Ground", false);
+    }
 
     // Function for a Melee attack
     private void MeleeAttack()

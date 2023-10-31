@@ -14,13 +14,20 @@ public class MapController : MonoBehaviour
     [SerializeField] private GameObject levelMenu; 
     [SerializeField] private Button playButton; 
 
-    public bool facingRight = true; 
+    [Header("Runtime Vars")]
+    private Animator anim; 
+    public bool facingLeft = true; 
     private int currentNodeNumber; 
+    private Vector2 movement;
+    private Vector2 lastDirection; 
+    private SpriteRenderer sprite; 
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        anim = player.GetComponent<Animator>();
         player.transform.position = startPoint.transform.position; 
+        sprite = player.GetComponent<SpriteRenderer>();
     }
 
     // Called when activated 
@@ -32,8 +39,9 @@ public class MapController : MonoBehaviour
     // Flips the player depending on the movement direction
     public void Flip()
     {
-        facingRight = !facingRight; 
-        player.transform.Rotate(0f, 180f, 0f);
+        if (facingLeft) sprite.flipX = false; 
+        else sprite.flipX = true;
+        facingLeft = !facingLeft; 
     }
 
     // Displays the menu for a level 
@@ -45,8 +53,28 @@ public class MapController : MonoBehaviour
     }
 
     // Loads the scene to play a level 
-    void PlayGame()
+    private void PlayGame()
     {
         SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
+    }
+
+    // Changes player animations based on the direction given
+    public void Animate(string move)
+    {
+        if (move == "Stop")
+        {
+            anim.SetBool("Up", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("Side", false);
+            return; 
+        }
+
+        else if (move == "Right" || move == "Left")
+        {
+            anim.SetBool("Side", true);
+            return; 
+        }
+
+        anim.SetBool(move, true);
     }
 }

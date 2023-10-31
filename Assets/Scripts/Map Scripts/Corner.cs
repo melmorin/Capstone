@@ -6,17 +6,21 @@ public class Corner : MonoBehaviour {
 
 	[Header("Corner Destination")]
 	[SerializeField] private GameObject destination;
+	[SerializeField] private string direction; 
 
 	[Header("Corner Destination Reverse")]
 	[SerializeField] private GameObject destinationReverse;
+	[SerializeField] private string directionReverse; 
 
 	private GameObject player;
+	private MapController mapController;
 	private bool flip = false;
-	private float speed = 5f;  
+	private float speed = 3f;  
 
 	// Start is called before the first frame 
 	void Start()
 	{
+		mapController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<MapController>();
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
 
@@ -35,20 +39,30 @@ public class Corner : MonoBehaviour {
 		yield return new WaitForSeconds (1/60);
 		if (!flip)
 		{
+			if (mapController.facingLeft && direction == "Right") mapController.Flip();
+			if (!mapController.facingLeft && direction == "Left") mapController.Flip();
+
+			mapController.Animate(direction); 
 			while (player.transform.position != destination.transform.position)
 			{
 				player.transform.position = Vector3.MoveTowards (player.transform.position, destination.transform.position, speed * Time.deltaTime);
 				yield return null;
 			}
+			mapController.Animate("Stop"); 
 			flip = true; 			
 		}
 		else
 		{
+			if (mapController.facingLeft && directionReverse == "Right") mapController.Flip();
+			if (!mapController.facingLeft && directionReverse == "Left") mapController.Flip();
+
+			mapController.Animate(directionReverse); 
 			while (player.transform.position != destinationReverse.transform.position)
 			{
 				player.transform.position = Vector3.MoveTowards (player.transform.position, destinationReverse.transform.position, speed * Time.deltaTime);
 				yield return null;
 			}
+			mapController.Animate("Stop"); 
 			flip = false; 
 		}
 	}

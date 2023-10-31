@@ -10,7 +10,7 @@ public class TopDownMovement : MonoBehaviour
     private Rigidbody2D rigb;
     private Vector2 movement;
     private Vector2 lastDirection; 
-    private bool facingRight = false; 
+    private bool facingLeft = false; 
 
     // Start is called before the first frame 
     void Start()
@@ -25,7 +25,7 @@ public class TopDownMovement : MonoBehaviour
         ProcessInputs();
         Animate(); 
 
-        if (movement.x < 0 && !facingRight || movement.x > 0 && facingRight)
+        if (movement.x < 0 && !facingLeft || movement.x > 0 && facingLeft)
         {
             Flip();
         }
@@ -53,7 +53,7 @@ public class TopDownMovement : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1; 
         transform.localScale = scale;
-        facingRight = !facingRight; 
+        facingLeft = !facingLeft; 
     }
 
     // Input Function 

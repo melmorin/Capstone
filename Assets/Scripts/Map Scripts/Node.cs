@@ -21,7 +21,7 @@ public class Node : MonoBehaviour {
 	private bool currentNode;
 	private float dirX; 
 	private float dirY; 
-	private float speed = 5f; 
+	private float speed = 3f; 
 
 	// Use this for initialization
 	void Start() 
@@ -37,7 +37,7 @@ public class Node : MonoBehaviour {
 		if (transform.position == player.transform.position) 
 		{
 			currentNode = true;
-			if (!mapController.facingRight) mapController.Flip();
+			if (!mapController.facingLeft) mapController.Flip();
 		} 
 		
 		else 
@@ -89,7 +89,7 @@ public class Node : MonoBehaviour {
 					if (leftDestination != null) 
 					{
 						currentNode = false;
-						if (mapController.facingRight) mapController.Flip();
+						if (!mapController.facingLeft) mapController.Flip();
 						mapController.SetMenuActive(false);
 						StartCoroutine(DoLeft()); 
 					}
@@ -100,7 +100,7 @@ public class Node : MonoBehaviour {
 					if (rightDestination != null) 
 					{
 						currentNode = false;
-						if (!mapController.facingRight) mapController.Flip();
+						if (mapController.facingLeft) mapController.Flip();
 						mapController.SetMenuActive(false);
 						StartCoroutine(DoRight()); 
 					}
@@ -112,45 +112,53 @@ public class Node : MonoBehaviour {
 	// Moves the player to the up destination 
 	IEnumerator DoUp()
 	{
+		mapController.Animate("Up");
 		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != upDestination.transform.position) 
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, upDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
+		mapController.Animate("Stop");
 	}
 
 	// Moves the player to the down destination 
 	IEnumerator DoDown()
 	{
+		mapController.Animate("Down");
 		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != downDestination.transform.position) 
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, downDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
+		mapController.Animate("Stop");
 	}
 
 	// Moves the player to the left destination 
 	IEnumerator DoLeft()
 	{
+		mapController.Animate("Right");
 		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != leftDestination.transform.position) 
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, leftDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
+		mapController.Animate("Stop");
 	}
 
 	// Moves the player to the right destination 
 	IEnumerator DoRight()
 	{	
+		mapController.Animate("Left");
 		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != rightDestination.transform.position) 
 		{
 			player.transform.position = Vector3.MoveTowards(player.transform.position, rightDestination.transform.position, speed * Time.deltaTime);
 			yield return null;
-		}		
+		}
+		mapController.Animate("Stop");		
 	}
 }
 
