@@ -19,7 +19,7 @@ public class HomingBullet : MonoBehaviour
     // If bullet its player it disappears 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" || collision.tag == "Player_Bullet")
         {
             Destroy(gameObject);
         }

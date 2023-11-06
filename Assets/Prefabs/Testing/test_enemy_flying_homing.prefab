@@ -308,7 +308,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -366,7 +366,7 @@ Transform:
   - {fileID: 142603983654710282}
   - {fileID: 5753688456704887369}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &614964273335416537
 SpriteRenderer:
@@ -432,9 +432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b4189e9088ac848927e7132fa36f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
   healthSlider: {fileID: 3913728715140916048}
   fillImage: {fileID: 7354873008748831448}
+  maxHealth: 10
 --- !u!114 &1626134907422444847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,11 +461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5224d3ab97d5ddb49908b17b7cc11a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingRange: 5
   bullet: {fileID: 5242584969752449289, guid: 3bb9a12400e0fb04981a8aaf3a1f4a22, type: 3}
   bulletParent: {fileID: 1962916959280007616}
-  canMove: 0
+  shootingRange: 5
   fireRate: 1
+  canMove: 0
 --- !u!50 &7438836461745007627
 Rigidbody2D:
   serializedVersion: 4

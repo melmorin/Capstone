@@ -16,14 +16,20 @@ public class PlayerBullet : MonoBehaviour
         rigb.velocity = transform.right * playerController.bulletSpeed; 
     }
 
-    // If the bullet hits an enemy / ground it gets destroyed 
-    private void OnCollisionEnter2D(Collision2D other)
+    // If the bullet hits an enemy it gets destroyed 
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Enemy enemy = other.gameObject.GetComponentInParent<Enemy>(); 
+        Enemy enemy = other.GetComponentInParent<Enemy>(); 
         if (enemy != null)
             {
                 enemy.TakeDamage(1);
+                Destroy(gameObject); 
             }
+    }
+
+    // If the bullet hit's the ground it gets destroyed 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
         Destroy(gameObject); 
     }
 }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject deathScreen; 
     [SerializeField] private GameObject pauseScreen; 
     public static bool gameIsPaused = false; 
+    public bool gameOver = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -63,5 +64,9 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         deathScreen.SetActive(true); 
+    }
+    public void Death()
+    {
+        gameOver = true; 
     }
 }

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
     [SerializeField] private int maxHealth = 10; 
-    [SerializeField] private float heathCooldown = .5f; 
+    [SerializeField] private float flashTime = .5f; 
     [SerializeField] private float dashingPower = 24f; 
     [SerializeField] private float dashingTime = 0.2f; 
     [SerializeField] private float dashingCooldown = 1f; 
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager; 
     private Animator anim; 
     private GameObject bullet; 
+    private SpriteRenderer sprite; 
 
     // Private bools 
     private bool facingRight = true; 
@@ -55,6 +56,9 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;
     private bool isCharging = false; 
     private bool invincibility; 
+    private bool dead = false; 
+    private bool inPlatform = false; 
+    private bool hasCollided;
 
     // Private float 
     private float fillValue; 
@@ -68,6 +72,7 @@ public class PlayerController : MonoBehaviour
         rigb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>(); 
         anim = GetComponent<Animator>(); 
+        sprite = GetComponent<SpriteRenderer>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
@@ -77,16 +82,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Movement
+        if (!dead)
+        {
+            // Movement
         dirX = Input.GetAxisRaw("Horizontal");
         anim.SetFloat("speed", Mathf.Abs(dirX)); 
 
         // Jump 
         if (Input.GetButtonDown("Jump"))
         { 
-            if (OnGround() && !isDashing)
+            if (OnGround() && !isDashing && !inPlatform)
             {
-                anim.SetBool("Jumping", true); 
+                hasCollided = false; 
+                StartJump(); 
                 rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
             }
         
@@ -113,24 +121,8 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Shoot()); 
         }
+        }
     }  
-
-    // Code that runs when the jump animation has ended 
-    public void JumpOver()
-    {
-        anim.SetBool("Jumping", false);
-
-        if (OnGround())
-        {
-            anim.SetBool("Hit_Ground", true); 
-        } 
-    }
-
-    // Code that runs when the player has finished the hitground animation
-    public void HitGround()
-    {
-        anim.SetBool("Hit_Ground", false);
-    }
 
     // Function for a Melee attack
     private void MeleeAttack()
@@ -153,24 +145,35 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
+    // Sets Jump bool to true
+    private void StartJump()
+    {
+        anim.SetBool("Jumping", true); 
+    }
+
     // Moves the player at a fixed rate 
     private void FixedUpdate()
     {
-        if (isDashing)
+        if (!gameManager.gameOver)
         {
-            return; 
-        } 
+            if (isDashing)
+            {
+                return; 
+            } 
 
-        rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
+            rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
+            anim.SetFloat("velocity_y", rigb.velocity.y);
 
-        if (dirX < 0 && facingRight) 
-        {
-            Flip();
+            if (dirX < 0 && facingRight) 
+            {
+                Flip();
+            }
+            else if (dirX > 0 && !facingRight)
+            {
+                Flip();
+            }
         }
-        else if (dirX > 0 && !facingRight)
-        {
-            Flip();
-        }
+        else rigb.velocity = new Vector2(0, 0f);
     }
 
     // Flips the player depending on the movement direction
@@ -189,6 +192,7 @@ public class PlayerController : MonoBehaviour
     // Checks to see if the player enters a trigger 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Vector2 impulse = new Vector2(-7, 2);
         if (collision.tag == "Enemy_Hitbox")
         {
             TakeDamage(2);
@@ -199,6 +203,65 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Runs when the player exits a collider 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platform")
+        {
+            Vector3 hit = collision.contacts[0].normal;
+            float angle = Vector3.Angle(hit, Vector3.up);
+
+            if(Mathf.Approximately(angle, 180) || Mathf.Approximately(angle, 90))
+            {
+                inPlatform = true; 
+            }
+        }
+
+        hasCollided = true; 
+    }
+
+    // Runs when the player exits a collider 
+    private void OnCollisionExit2D(Collision2D collision)
+    {        
+        if (collision.gameObject.tag == "Platform")
+        {          
+            inPlatform = false;  
+        }
+        hasCollided = false; 
+    }
+
+    // Code that runs when the jump animation has ended 
+    public void JumpOver()
+    {
+        anim.SetBool("Jumping", false);
+    }
+
+
+    // Checks to see if the player has hit the ground 
+    private IEnumerator WhenGround()
+    {
+        anim.SetBool("Jumping", true);
+        yield return new WaitForSeconds(.1f);
+
+        bool loop = true; 
+        while (loop)
+        {
+            yield return new WaitUntil(() => hasCollided);
+            if (OnGround() && !inPlatform) loop = false; 
+        }
+
+        hasCollided = false; 
+
+        anim.SetBool("Jumping", false);
+        anim.SetBool("Hit_Ground", true);
+    }
+
+    // Code that runs when the player has finished the hitground animation
+    public void HitGround()
+    {
+        anim.SetBool("Hit_Ground", false);
+    }
+
     // Take Damage 
     public void TakeDamage(int amount)
     {
@@ -207,15 +270,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!invincibility)
+        else if (!invincibility)
         {
-             currentHealth = currentHealth - amount;
+            currentHealth = currentHealth - amount;
             UpdateHealth(amount); 
-        }
-
-        if (amount > 0)
-        {
-            StartCoroutine(HealthCooldown());
+            StartCoroutine(FlashColor(amount)); 
         }
 
         if (currentHealth <= 0){
@@ -226,7 +285,16 @@ public class PlayerController : MonoBehaviour
     // Everything that happens when the player dies
     private void PlayerDeath()
     {
-        gameObject.SetActive(false); 
+        anim.SetBool("Dying", true); 
+        dead = true; 
+        gameManager.Death(); 
+        rigb.gravityScale = 15f; 
+    }
+
+    // Ends the game after death animation
+    private void EndGame()
+    {
+        anim.speed = 0; 
         gameManager.EndGame();
     }
 
@@ -256,7 +324,31 @@ public class PlayerController : MonoBehaviour
         }
         else { 
             fillImage.color = Color.green;
+        }       
+    }
+
+    private IEnumerator FlashColor(int amount)
+    {
+        if (amount > 0) invincibility = true; 
+
+        if (amount > 0)
+        {
+            if (currentHealth > 0)
+            {
+                sprite.color = new Color(1,0,0); 
+                yield return new WaitForSeconds(flashTime);
+                sprite.color = new Color(1,1,1);
+            }
         }
+        else { 
+            if (currentHealth > 0)
+            {
+                sprite.color = new Color(0,1,0); 
+                yield return new WaitForSeconds(flashTime);
+                sprite.color = new Color(1,1,1); 
+            }
+        }
+        invincibility = false; 
     }
 
     // Dashes the player 
@@ -264,26 +356,35 @@ public class PlayerController : MonoBehaviour
     {
         canDash = false;
         isDashing = true; 
+
+        anim.SetBool("isDashing", true);
         float originalGravity = rigb.gravityScale;
         rigb.gravityScale = 0f; 
+
         if (!facingRight) rigb.velocity = new Vector2(transform.localScale.x * -dashingPower, 0f);
+
         else rigb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+       
         tr.emitting = true; 
         yield return new WaitForSeconds(dashingTime);
-        tr.emitting = false;
-        rigb.gravityScale = originalGravity; 
-        isDashing = false; 
-        yield return new WaitForSeconds(dashingCooldown);
-        canDash = true; 
+
+        StartCoroutine(EndDash(originalGravity)); 
+        
     }
 
-    // Sets a timer before the player can take more damage 
-    private IEnumerator HealthCooldown()
+    // End Dash
+    private IEnumerator EndDash(float originalGravity)
     {
-        invincibility = true; 
-        yield return new WaitForSeconds(heathCooldown);
-        invincibility = false; 
-    } 
+        tr.emitting = false;
+       
+        rigb.gravityScale = originalGravity; 
+        isDashing = false; 
+        anim.SetBool("isDashing", false);
+
+        yield return new WaitForSeconds(dashingCooldown);
+
+        canDash = true; 
+    }
 
     // Shoots a projectile 
     private IEnumerator Shoot()

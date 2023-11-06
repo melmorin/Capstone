@@ -7,24 +7,30 @@ public class EnemyPatrol : MonoBehaviour
     [Header ("Settings")]
     [SerializeField] private float moveSpeed = 1f; 
     private Rigidbody2D rigb;
+    private GameManager gameManager; 
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
         rigb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsFacingRight())
+        if (!gameManager.gameOver)
         {
-            rigb.velocity = new Vector2(moveSpeed, 0f);
+            if (IsFacingRight())
+            {
+                rigb.velocity = new Vector2(moveSpeed, 0f);
+            }
+            else 
+            {
+                rigb.velocity = new Vector2(-moveSpeed, 0f);
+            }
         }
-        else 
-        {
-            rigb.velocity = new Vector2(-moveSpeed, 0f);
-        }
+        else rigb.velocity = new Vector2(0, 0f);
     }
 
     // Move enemy when hitting an edge  

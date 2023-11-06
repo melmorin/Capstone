@@ -16,31 +16,36 @@ public class EnemyShoot : MonoBehaviour
     private float nextFireTime;
     private Transform player; 
     public bool canMove; 
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-
-        if (distanceFromPlayer <= shootingRange)
+        if (!gameManager.gameOver)
         {
-            canMove = false;  
-        }
-        else 
-        { 
-            canMove = true;  
-        }
+            float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
 
-        if (distanceFromPlayer <= shootingRange && nextFireTime < Time.time)
-        {
-            Instantiate(bullet, bulletParent.transform.position, Quaternion.identity);
-            nextFireTime = Time.time + fireRate; 
+            if (distanceFromPlayer <= shootingRange)
+            {
+                canMove = false;  
+            }
+            else 
+            { 
+                canMove = true;  
+            }
+
+            if (distanceFromPlayer <= shootingRange && nextFireTime < Time.time)
+            {
+                Instantiate(bullet, bulletParent.transform.position, Quaternion.identity);
+                nextFireTime = Time.time + fireRate; 
+            }
         }
     }
 
