@@ -9,14 +9,18 @@ public class NPC : MonoBehaviour
     [Header ("NPC Information")]
     [SerializeField] private string npcName; 
     [SerializeField] private Sprite npcProfile; 
+    [SerializeField] private Sprite npcSprite; 
     [SerializeField] private string[] dialogue; 
 
+    private SpriteRenderer sprite; 
     private bool playerIsClose;
     private DialogueController dialogueController;
 
     // Runs before the first frame 
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>(); 
+        sprite.sprite = npcSprite; 
         dialogueController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<DialogueController>(); 
     }
 
