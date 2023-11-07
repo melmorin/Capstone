@@ -162,7 +162,14 @@ public class PlayerController : MonoBehaviour
             } 
 
             rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
-            anim.SetFloat("velocity_y", rigb.velocity.y);
+
+            if (!Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 1f, jumpableGround))
+            {
+                anim.SetFloat("velocity_y", rigb.velocity.y);
+            }
+            else {
+                anim.SetFloat("velocity_y", 0);
+            }
 
             if (dirX < 0 && facingRight) 
             {
