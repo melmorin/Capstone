@@ -322,8 +322,8 @@ PolygonCollider2D:
     - - {x: 20.014648, y: 17.355835}
       - {x: -8.689949, y: 12.36547}
       - {x: -8.7734375, y: -7.6927724}
-      - {x: 49.565395, y: -7.5558085}
-      - {x: 49.66508, y: 13.326014}
+      - {x: 48.498238, y: -7.926994}
+      - {x: 48.505127, y: 13.975588}
   m_UseDelaunayMesh: 0
 --- !u!483693784 &88280725
 TilemapRenderer:
@@ -3930,7 +3930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41335347, g: 1, b: 0.3537736, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4446,9 +4446,8 @@ MonoBehaviour:
   dashingPower: 24
   dashingTime: 0.2
   dashingCooldown: 1
-  attackRange: 1.25
-  attackRate: 2
-  attackDamage: 3
+  attackRange: 0.75
+  attackDamage: 10
   chargeSpeed: 0.04
   chargeInterval: 0.005
   maxSpeed: 20

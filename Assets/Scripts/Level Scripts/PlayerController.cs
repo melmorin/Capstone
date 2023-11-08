@@ -26,9 +26,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashingCooldown = 1f; 
 
     [Header ("Melee Settings")]
-    [SerializeField] private float attackRange = 1.25f;
-    [SerializeField] private float attackRate = 2f; 
-    [SerializeField] private int attackDamage = 3; 
+    [SerializeField] private float attackRange = .75f;
+    [SerializeField] private int attackDamage = 10; 
 
     [Header ("Range Settings")]
     [SerializeField] private float chargeSpeed = .04f; 
@@ -59,11 +58,12 @@ public class PlayerController : MonoBehaviour
     private bool dead = false; 
     private bool inPlatform = false; 
     private bool hasCollided;
+    private bool meleeAttacking; 
+    private bool startDelay; 
 
     // Private float 
     private float fillValue; 
     private float dirX; 
-    private float nextAttack = 0f; 
 
     // Start is called before the first frame update
     private void Start()
@@ -77,8 +77,18 @@ public class PlayerController : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
+
+        StartCoroutine(StartDelay()); 
     }
 
+    // All delays that run at start 
+    private IEnumerator StartDelay()
+    {
+        startDelay = true;
+        yield return new WaitForSeconds(1f); 
+        startDelay = false; 
+    }
+    
     // Update is called once per frame
     private void Update()
     {
@@ -91,7 +101,7 @@ public class PlayerController : MonoBehaviour
         // Jump 
         if (Input.GetButtonDown("Jump"))
         { 
-            if (OnGround() && !isDashing && !inPlatform)
+            if (OnGround() && !isDashing && !inPlatform && !meleeAttacking)
             {
                 hasCollided = false; 
                 StartJump(); 
@@ -101,19 +111,17 @@ public class PlayerController : MonoBehaviour
         }
 
         // Dash 
-        if (Input.GetButtonDown("Fire3") && canDash)
+        if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking)
         {
             StartCoroutine(Dash());
         }
 
         // Melee attack
-        if (Time.time >= nextAttack)
+        if (Input.GetButtonDown("Fire1") && !meleeAttacking && OnGround() && !startDelay)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                MeleeAttack();
-                nextAttack = Time.time + 1f / attackRate; 
-            }
+            rigb.velocity = new Vector2(0,0); 
+            meleeAttacking = true; 
+            anim.SetBool("melee", true); 
         }
 
         // Ranged Attack 
@@ -121,8 +129,16 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Shoot()); 
         }
+
         }
     }  
+
+    // Runs when melee animaiton ends 
+    private void EndMelee()
+    {
+        meleeAttacking = false; 
+        anim.SetBool("melee", false);
+    }
 
     // Function for a Melee attack
     private void MeleeAttack()
@@ -161,25 +177,29 @@ public class PlayerController : MonoBehaviour
                 return; 
             } 
 
-            rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
+            if (!meleeAttacking)
+            {
+                rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
 
-            if (!Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 1f, jumpableGround))
-            {
-                anim.SetFloat("velocity_y", rigb.velocity.y);
-            }
-            else {
-                anim.SetFloat("velocity_y", 0);
-            }
+                if (!Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 2f, jumpableGround))
+                {
+                    anim.SetFloat("velocity_y", rigb.velocity.y);
+                }
+                else {
+                    anim.SetFloat("velocity_y", 0);
+                }
 
-            if (dirX < 0 && facingRight) 
-            {
-                Flip();
-            }
-            else if (dirX > 0 && !facingRight)
-            {
-                Flip();
+                if (dirX < 0 && facingRight) 
+                {
+                    Flip();
+                }
+                else if (dirX > 0 && !facingRight)
+                {
+                    Flip();
+                }
             }
         }
+
         else rigb.velocity = new Vector2(0, 0f);
     }
 
