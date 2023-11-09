@@ -15,6 +15,7 @@ TagManager:
   - Dialogue_Panel
   - Player_Bullet
   - Platform
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - Loot_Bag
   - Character
   - Player_Bullet
-  - 
+  - Item
   - 
   - 
   - 
@@ -63,4 +64,7 @@ TagManager:
     locked: 0
   - name: NPC
     uniqueID: 2539899445
+    locked: 0
+  - name: Items
+    uniqueID: 1624165313
     locked: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditorInternal; 
 
 public class LootBag : MonoBehaviour
 {
@@ -35,8 +36,8 @@ public class LootBag : MonoBehaviour
         if (droppedItem != null)
         {
             GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnpos, Quaternion.identity);
-            lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedItem.lootSprite; 
             lootGameObject.gameObject.tag = droppedItem.lootType; 
+            lootGameObject.GetComponent<Animator>().runtimeAnimatorController = droppedItem.anim; 
         }
     }
 }

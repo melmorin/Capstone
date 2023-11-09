@@ -36,7 +36,7 @@ public class EnemyPatrol : MonoBehaviour
     // Move enemy when hitting an edge  
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        if (collision.gameObject.layer == 6)
         {
             transform.localScale = new Vector2(-(Mathf.Sign(rigb.velocity.x)), transform.localScale.y);
         }

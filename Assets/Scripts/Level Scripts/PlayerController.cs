@@ -219,7 +219,6 @@ public class PlayerController : MonoBehaviour
     // Checks to see if the player enters a trigger 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector2 impulse = new Vector2(-7, 2);
         if (collision.tag == "Enemy_Hitbox")
         {
             TakeDamage(2);
@@ -227,6 +226,11 @@ public class PlayerController : MonoBehaviour
         else if (collision.tag == "Bullet")
         {
             TakeDamage(1);
+        }
+        else if (collision.tag == "Coin")
+        {
+            Destroy(collision.gameObject); 
+            gameManager.AddCoin(); 
         }
     }
 
