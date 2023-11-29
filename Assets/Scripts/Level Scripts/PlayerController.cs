@@ -181,13 +181,7 @@ public class PlayerController : MonoBehaviour
             {
                 rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
 
-                if (!Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 2f, jumpableGround))
-                {
-                    anim.SetFloat("velocity_y", rigb.velocity.y);
-                }
-                else {
-                    anim.SetFloat("velocity_y", 0);
-                }
+                anim.SetFloat("velocity_y", rigb.velocity.y);
 
                 if (dirX < 0 && facingRight) 
                 {
@@ -410,6 +404,11 @@ public class PlayerController : MonoBehaviour
        
         rigb.gravityScale = originalGravity; 
         isDashing = false; 
+
+        if (OnGround()) anim.SetBool("fallDown", true);
+        else anim.SetBool("fallDown", false); 
+    
+
         anim.SetBool("isDashing", false);
 
         yield return new WaitForSeconds(dashingCooldown);
