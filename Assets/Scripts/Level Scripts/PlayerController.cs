@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Slider healthSlider; 
     [SerializeField] private TrailRenderer tr; 
     [SerializeField] private Transform attackPoint; 
-    [SerializeField] private Transform firePoint; 
+    [SerializeField] private GunRotation firePoint; 
     [SerializeField] private GameObject bulletPrefab;
 
     [Header ("Player Settings")]
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     [Header ("Runtime Vars")]
     public float bulletSpeed; 
+    public bool isCharging = false; 
    
     // Private Ints
     private int currentHealth; 
@@ -53,7 +54,6 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true; 
     private bool canDash = true; 
     private bool isDashing;
-    private bool isCharging = false; 
     private bool invincibility; 
     private bool dead = false; 
     private bool inPlatform = false; 
@@ -426,7 +426,7 @@ public class PlayerController : MonoBehaviour
             bulletSpeed += chargeSpeed;
             yield return new WaitForSeconds(chargeInterval); 
         }     
-        bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        bullet = Instantiate(bulletPrefab, firePoint.currentPoint.position, firePoint.currentPoint.rotation);
         yield return new WaitForSeconds(shootDelay); 
         isCharging = false; 
     }
