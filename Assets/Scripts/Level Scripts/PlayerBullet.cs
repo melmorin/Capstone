@@ -22,7 +22,7 @@ public class PlayerBullet : MonoBehaviour
         Enemy enemy = other.GetComponentInParent<Enemy>(); 
         if (enemy != null)
             {
-                enemy.TakeDamage(1);
+                enemy.TakeDamage(3);
                 Destroy(gameObject); 
             }
     }

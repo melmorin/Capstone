@@ -95,41 +95,42 @@ public class PlayerController : MonoBehaviour
         if (!dead)
         {
             // Movement
-        dirX = Input.GetAxisRaw("Horizontal");
-        anim.SetFloat("speed", Mathf.Abs(dirX)); 
+            dirX = Input.GetAxisRaw("Horizontal");
+            anim.SetFloat("speed", Mathf.Abs(dirX)); 
 
-        // Jump 
-        if (Input.GetButtonDown("Jump"))
-        { 
-            if (OnGround() && !isDashing && !inPlatform && !meleeAttacking)
+            // Dash 
+            if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking)
             {
-                hasCollided = false; 
-                StartJump(); 
-                rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
+                StartCoroutine(Dash());
             }
-        
-        }
 
-        // Dash 
-        if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking)
-        {
-            StartCoroutine(Dash());
-        }
+            // Melee attack
+            else if (Input.GetButtonDown("Fire1") && !meleeAttacking && !isCharging && OnGround() && !startDelay)
+            {
+                rigb.velocity = new Vector2(0,0); 
+                meleeAttacking = true; 
+                anim.SetBool("melee", true); 
+            }
 
-        // Melee attack
-        if (Input.GetButtonDown("Fire1") && !meleeAttacking && OnGround() && !startDelay)
-        {
-            rigb.velocity = new Vector2(0,0); 
-            meleeAttacking = true; 
-            anim.SetBool("melee", true); 
-        }
+            // Ranged Attack 
+            else if (Input.GetButtonDown("Fire2") && !isCharging && !meleeAttacking && OnGround() && !startDelay)
+            {
+                rigb.velocity = new Vector2(0,0); 
+                isCharging = true; 
+                StartCoroutine(Shoot()); 
+            }
 
-        // Ranged Attack 
-        if (Input.GetButtonDown("Fire2") && !isCharging)
-        {
-            StartCoroutine(Shoot()); 
-        }
-
+            // Jump 
+            else if (Input.GetButtonDown("Jump"))
+            { 
+                if (OnGround() && !isDashing && !inPlatform && !meleeAttacking && !isCharging)
+                {
+                    hasCollided = false; 
+                    StartJump(); 
+                    rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
+                }
+            
+            }
         }
     }  
 
@@ -158,13 +159,14 @@ public class PlayerController : MonoBehaviour
         {
             return; 
         }
+
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
     // Sets Jump bool to true
     private void StartJump()
     {
-        anim.SetBool("Jumping", true); 
+        anim.SetTrigger("jump");
     }
 
     // Moves the player at a fixed rate 
@@ -177,8 +179,9 @@ public class PlayerController : MonoBehaviour
                 return; 
             } 
 
-            if (!meleeAttacking)
+            if (!meleeAttacking && !isCharging)
             {
+
                 rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
 
                 anim.SetFloat("velocity_y", rigb.velocity.y);
@@ -255,17 +258,10 @@ public class PlayerController : MonoBehaviour
         hasCollided = false; 
     }
 
-    // Code that runs when the jump animation has ended 
-    public void JumpOver()
-    {
-        anim.SetBool("Jumping", false);
-    }
-
-
     // Checks to see if the player has hit the ground 
     private IEnumerator WhenGround()
     {
-        anim.SetBool("Jumping", true);
+        anim.SetBool("airborn", true); 
         yield return new WaitForSeconds(.1f);
 
         bool loop = true; 
@@ -276,8 +272,7 @@ public class PlayerController : MonoBehaviour
         }
 
         hasCollided = false; 
-
-        anim.SetBool("Jumping", false);
+        anim.SetBool("airborn", false); 
         anim.SetBool("Hit_Ground", true);
     }
 
@@ -383,6 +378,8 @@ public class PlayerController : MonoBehaviour
         isDashing = true; 
 
         anim.SetBool("isDashing", true);
+        anim.SetTrigger("dash");
+        
         float originalGravity = rigb.gravityScale;
         rigb.gravityScale = 0f; 
 
@@ -405,11 +402,11 @@ public class PlayerController : MonoBehaviour
         rigb.gravityScale = originalGravity; 
         isDashing = false; 
 
-        if (OnGround()) anim.SetBool("fallDown", true);
-        else anim.SetBool("fallDown", false); 
-    
-
         anim.SetBool("isDashing", false);
+
+        if (OnGround()) anim.SetBool("onGround", true);
+        else anim.SetBool("onGround", false); 
+
 
         yield return new WaitForSeconds(dashingCooldown);
 
@@ -419,15 +416,22 @@ public class PlayerController : MonoBehaviour
     // Shoots a projectile 
     private IEnumerator Shoot()
     {
+        anim.SetBool("isCharging", true);
+        anim.SetTrigger("shoot");
         bulletSpeed = 0; 
-        isCharging = true; 
         while (Input.GetButton("Fire2") && bulletSpeed < maxSpeed)
         {
             bulletSpeed += chargeSpeed;
             yield return new WaitForSeconds(chargeInterval); 
         }     
+        anim.SetBool("isCharging", false);
         bullet = Instantiate(bulletPrefab, firePoint.currentPoint.position, firePoint.currentPoint.rotation);
         yield return new WaitForSeconds(shootDelay); 
+    }
+
+    // Ends shooting animation
+    private void EndShootAnim()
+    {
         isCharging = false; 
     }
 }

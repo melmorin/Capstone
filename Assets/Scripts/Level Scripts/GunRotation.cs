@@ -24,13 +24,17 @@ public class GunRotation : MonoBehaviour
     {
         if (!gameManager.gameOver && playerController.isCharging)
         {
-            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+            mousePos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
 
             Vector3 rotation = mousePos - transform.position; 
             float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; 
+
+            if (rotZ < 0)
+            {
+                rotZ += 360; 
+            }
             
             currentPoint = FindPoint(rotZ, points);
-            Debug.Log(currentPoint);
         }      
     }
 
@@ -40,48 +44,9 @@ public class GunRotation : MonoBehaviour
         Transform tMin = null; 
         float minDist = Mathf.Infinity; 
 
-        Debug.Log(rotZ);  
-
-        if (rotZ > 90 && rotZ <= 135)
-        {
-            rotZ -= 45; 
-        }
-        else if (rotZ > 135 && rotZ <= 180)
-        {
-            rotZ -= 90; 
-        }
-        else if (rotZ > 180 && rotZ <= 225)
-        {
-             rotZ += 90;
-        }
-        else if (rotZ > 225 && rotZ <= 270)
-        {
-             rotZ += 45;
-        }
-
-        if (rotZ < 0)
-        {
-            rotZ += 360; 
-        }
-        else if (rotZ >= 360)
-        {
-            rotZ -= 360;
-        }
-
-        Debug.Log(rotZ); 
-
         foreach (Transform t in points)
         {
             float tRot = t.transform.eulerAngles.z;
-
-            if (tRot > 90 && tRot < 270)
-            {
-                tRot -= 180;
-            }
-            if (tRot < 0)
-            {
-                tRot += 360; 
-            }
 
             if (rotZ > 270)
             {
@@ -90,12 +55,15 @@ public class GunRotation : MonoBehaviour
                     tRot = 360; 
                 }
             }
+            else if (rotZ > 135 && rotZ < 225)
+            {
+                if (tRot == 0)
+                {
+                    tRot = 180; 
+                }
+            }
 
             float dist = Mathf.Abs(tRot - rotZ);
-
-            Debug.Log(rotZ);
-            Debug.Log(tRot);
-            Debug.Log(dist);
 
             if (dist < minDist)
             {

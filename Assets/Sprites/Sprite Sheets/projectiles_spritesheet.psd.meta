@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 579692fc2e9e2d84fb451dd9e10de817
+guid: 6e19785578ece4d468a4d671c7f47c71
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,85 +149,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mc_dash_sheet_0
+      name: projectiles_spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.75, y: 0.5}
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c82938f5547ad21498ee90c146a6a074
-      internalID: 439575416
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_dash_sheet_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.75, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c877870801a499843999b30fb02d950b
-      internalID: 1331693128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_dash_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.75, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6cdb6490be03474bb1e9e535a9a4ae7
-      internalID: 274361197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mc_dash_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.75, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 595e5903230be904eb0f4e65bdabe1d5
-      internalID: 605180670
+      spriteID: 7d3085146ff1566499c1e4597371959f
+      internalID: 745199191
       vertices: []
       indices: 
       edges: []
@@ -243,10 +180,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      mc_dash_sheet_0: 439575416
-      mc_dash_sheet_1: 1331693128
-      mc_dash_sheet_2: 274361197
-      mc_dash_sheet_3: 605180670
+      projectiles_spritesheet_0: 745199191
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
