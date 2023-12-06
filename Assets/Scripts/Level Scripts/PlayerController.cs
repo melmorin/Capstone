@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     private bool hasCollided;
     private bool meleeAttacking; 
     private bool startDelay; 
+    private bool jumping; 
 
     // Private float 
     private float fillValue; 
@@ -123,9 +124,10 @@ public class PlayerController : MonoBehaviour
             // Jump 
             else if (Input.GetButtonDown("Jump"))
             { 
-                if (OnGround() && !isDashing && !inPlatform && !meleeAttacking && !isCharging)
+                if (OnGround() && !jumping && !isDashing && !inPlatform && !meleeAttacking && !isCharging)
                 {
                     hasCollided = false; 
+                    jumping = true;
                     StartJump(); 
                     rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
                 }
@@ -262,6 +264,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator WhenGround()
     {
         anim.SetBool("airborn", true); 
+        
         yield return new WaitForSeconds(.1f);
 
         bool loop = true; 
@@ -272,14 +275,17 @@ public class PlayerController : MonoBehaviour
         }
 
         hasCollided = false; 
+
         anim.SetBool("airborn", false); 
-        anim.SetBool("Hit_Ground", true);
+        anim.ResetTrigger("jump");
+        anim.SetTrigger("Hit_Ground");
+        jumping = false; 
     }
 
     // Code that runs when the player has finished the hitground animation
     public void HitGround()
     {
-        anim.SetBool("Hit_Ground", false);
+        anim.ResetTrigger("Hit_Ground");
     }
 
     // Take Damage 
@@ -305,7 +311,7 @@ public class PlayerController : MonoBehaviour
     // Everything that happens when the player dies
     private void PlayerDeath()
     {
-        anim.SetBool("Dying", true); 
+        anim.SetTrigger("die"); 
         dead = true; 
         gameManager.Death(); 
         rigb.gravityScale = 15f; 
