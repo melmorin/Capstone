@@ -10,6 +10,7 @@ public class GunRotation : MonoBehaviour
     private PlayerController playerController;
     [SerializeField] private Transform[] points;  
     public Transform currentPoint; 
+    public float rotZ; 
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class GunRotation : MonoBehaviour
             mousePos = mainCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
 
             Vector3 rotation = mousePos - transform.position; 
-            float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; 
+            rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; 
 
             if (rotZ < 0)
             {
@@ -44,8 +45,11 @@ public class GunRotation : MonoBehaviour
         Transform tMin = null; 
         float minDist = Mathf.Infinity; 
 
+        int count = 0; 
+        int point = 0; 
         foreach (Transform t in points)
         {
+            count++; 
             float tRot = t.transform.eulerAngles.z;
 
             if (rotZ > 270)
@@ -67,10 +71,12 @@ public class GunRotation : MonoBehaviour
 
             if (dist < minDist)
             {
+                point = count; 
                 tMin = t; 
                 minDist = dist; 
             }
         }
+        playerController.rotZ = point; 
         return tMin; 
     }
 }

@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [Header ("Runtime Vars")]
     public float bulletSpeed; 
     public bool isCharging = false; 
+    public float rotZ; 
    
     // Private Ints
     private int currentHealth; 
@@ -98,6 +99,9 @@ public class PlayerController : MonoBehaviour
             // Movement
             dirX = Input.GetAxisRaw("Horizontal");
             anim.SetFloat("speed", Mathf.Abs(dirX)); 
+
+            // firepoint rotation 
+            anim.SetFloat("rotZ", rotZ);
 
             // Dash 
             if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking)
