@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 if (OnGround() && !jumping && !isDashing && !inPlatform && !meleeAttacking && !isCharging)
                 {
                     hasCollided = false; 
-                    jumping = true;
+                    jumping = true; 
                     StartJump(); 
                     rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
                 }
@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
     // Runs when the player exits a collider 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        Debug.Log("Yeehaw");
         if (collision.gameObject.tag == "Platform")
         {
             Vector3 hit = collision.contacts[0].normal;
@@ -400,28 +400,10 @@ public class PlayerController : MonoBehaviour
        
         tr.emitting = true; 
 
-        while (isDashing)
-        {
-            if (DashCheck())
-            {
-                StopCoroutine(Dash());
-                StartCoroutine(EndDash(originalGravity)); 
-            }
-        } 
-
         yield return new WaitForSeconds(dashingTime);
 
         StartCoroutine(EndDash(originalGravity)); 
         
-    }
-
-    // Checks if player hits a wall during dash
-    private bool DashCheck()
-    {
-        Vector2 dirX;  
-        if (facingRight) dirX = Vector2.right;
-        else dirX = Vector2.left;
-        return Physics2D.Raycast(transform.position, dirX, .1f, jumpableGround).collider;
     }
 
     // End Dash
