@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &21453649
 Transform:
   m_ObjectHideFlags: 0
@@ -326,9 +326,9 @@ GameObject:
   - component: {fileID: 74925727}
   - component: {fileID: 74925728}
   - component: {fileID: 74925729}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_3
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 88280730}
   - component: {fileID: 88280731}
   m_Layer: 0
-  m_Name: Background
+  m_Name: World Edge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1384,9 +1384,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 396755572}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1574,9 +1574,9 @@ GameObject:
   m_Component:
   - component: {fileID: 463299514}
   - component: {fileID: 463299515}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_0 (1)
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1880,7 +1880,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.47058824, g: 0.72156864, b: 0.73333335, a: 0}
+  m_BackGroundColor: {r: 0.21960784, g: 0.44313726, b: 0.45490196, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2064,7 +2064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 571606782}
   - component: {fileID: 571606783}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4492,7 +4492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 949260153}
   - component: {fileID: 949260154}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5265,9 +5265,9 @@ GameObject:
   - component: {fileID: 1250057148}
   - component: {fileID: 1250057147}
   - component: {fileID: 1250057149}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_1
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5419,9 +5419,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1312178008}
   - component: {fileID: 1312178009}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_0 (2)
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5569,11 +5569,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1336006574}
   - component: {fileID: 1336006576}
-  - component: {fileID: 1336006575}
   - component: {fileID: 1336006577}
-  m_Layer: 0
+  - component: {fileID: 1336006578}
+  m_Layer: 1
   m_Name: background_spritesheet'_0
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5595,19 +5595,6 @@ Transform:
   m_Father: {fileID: 396755572}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1336006575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336006573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70d464aac46cf1345a9844ca6f0f84c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxEffect: 0.4
 --- !u!212 &1336006576
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5705,6 +5692,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15, y: 14}
   m_EdgeRadius: 0
+--- !u!114 &1336006578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336006573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d464aac46cf1345a9844ca6f0f84c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxEffect: 0.4
 --- !u!1 &1338819100
 GameObject:
   m_ObjectHideFlags: 0
@@ -6022,9 +6022,9 @@ GameObject:
   - component: {fileID: 1520158054}
   - component: {fileID: 1520158053}
   - component: {fileID: 1520158055}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_2
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6777,7 +6777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1692807940}
   - component: {fileID: 1692807941}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7703,7 +7703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1866655339}
   - component: {fileID: 1866655340}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11818,7 +11818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2014678953}
   - component: {fileID: 2014678954}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12134,7 +12134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2068589078}
   - component: {fileID: 2068589079}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: background_spritesheet'_3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

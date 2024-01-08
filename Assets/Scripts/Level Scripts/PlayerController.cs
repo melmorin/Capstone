@@ -240,7 +240,6 @@ public class PlayerController : MonoBehaviour
     // Runs when the player exits a collider 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Yeehaw");
         if (collision.gameObject.tag == "Platform")
         {
             Vector3 hit = collision.contacts[0].normal;
