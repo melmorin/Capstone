@@ -64,7 +64,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.003515005, y: -0.038667172}
+  m_Offset: {x: -0.0014986992, y: -0.18989184}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -75,7 +75,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.87585974, y: 0.9295266}
+  m_Size: {x: 0.6218022, y: 0.6270773}
   m_EdgeRadius: 0
 --- !u!1 &3657295641172306822
 GameObject:
@@ -241,7 +241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.786}
+  m_AnchoredPosition: {x: 0, y: 0.624}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4983298866760606664
@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 3662481253465568505}
   - component: {fileID: 3424014935010790412}
   - component: {fileID: -8517117754997516761}
+  - component: {fileID: 8576822305807706553}
   m_Layer: 3
   m_Name: test_enemy
   m_TagString: Enemy
@@ -344,7 +345,7 @@ Transform:
   - {fileID: 2747998101320917758}
   - {fileID: 880552193824334755}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2840227924980352606
 SpriteRenderer:
@@ -387,7 +388,7 @@ SpriteRenderer:
   m_SortingLayerID: -1755067851
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 21c0de8fc7e63c341be0fa7eb1ce2343, type: 3}
+  m_Sprite: {fileID: 33825791, guid: b073492349f327244a6b68ab754ce63d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -485,8 +486,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.82946944, y: -0.21437985}
-  m_Size: {x: 0.38290644, y: 0.89180815}
+  m_Offset: {x: 0.5335833, y: -0.21437985}
+  m_Size: {x: 0.31093428, y: 0.89180815}
   m_Direction: 0
 --- !u!114 &-8517117754997516761
 MonoBehaviour:
@@ -503,6 +504,27 @@ MonoBehaviour:
   droppedItemPrefab: {fileID: 8734518847464526394, guid: a6e1a555a5580b342920fc11cfd463f8, type: 3}
   lootList:
   - {fileID: 11400000, guid: 27d94f736defac54493f7e54d149c8a7, type: 2}
+--- !u!95 &8576822305807706553
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613241958070068049}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6083c6a51b0a6af4d998ba414994f1ab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7743649196291501413
 GameObject:
   m_ObjectHideFlags: 0
