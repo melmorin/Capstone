@@ -12,8 +12,13 @@ public class Enemy : MonoBehaviour
     [Header ("Settings")]
     [SerializeField] private int maxHealth = 10; 
 
+    [Header ("Runtime Vars")]
+    public bool dead = false; 
+
     private int currentHealth;
     private float fillValue; 
+    private Animator anim; 
+    private SpriteRenderer sprite;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +27,8 @@ public class Enemy : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
+        anim = GetComponent<Animator>(); 
+        sprite = GetComponent<SpriteRenderer>(); 
     }
 
     // Damages the enemy when hit by the player 
@@ -29,11 +36,29 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= damage;
         UpdateHealth(damage); 
-
+        StartCoroutine(FlashColor());
+        StartCoroutine(PlayParticle()); 
         if (currentHealth <= 0)
         {
-            EnemyDeath(); 
+            dead = true; 
         }
+    }
+
+    // Sets dead anim bool
+    public void SetDeadBool()
+    {
+        if (dead)
+        {
+            anim.SetBool("dead", true); 
+        }
+    }
+
+    // Plays the hit particle effect
+    private IEnumerator PlayParticle()
+    {
+        gameObject.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(.2f);
+        gameObject.GetComponent<ParticleSystem>().Stop();
     }
 
     // Performs all code related to enemy death
@@ -68,6 +93,14 @@ public class Enemy : MonoBehaviour
         {
             fillImage.color = Color.yellow;
         }
+    }
+
+    // Enemy flashed red when hit
+    private IEnumerator FlashColor()
+    {
+        sprite.color = new Color(1,0,0); 
+        yield return new WaitForSeconds(.2f);
+        sprite.color = new Color(1,1,1);
     }
 
 }

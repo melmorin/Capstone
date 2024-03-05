@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers; 
     [SerializeField] private Image fillImage;
     [SerializeField] private Slider healthSlider; 
-    [SerializeField] private TrailRenderer tr; 
     [SerializeField] private Transform attackPoint; 
     [SerializeField] private GunRotation firePoint; 
     [SerializeField] private GameObject bulletPrefab;
@@ -19,14 +18,14 @@ public class PlayerController : MonoBehaviour
     [Header ("Player Settings")]
     [SerializeField] private float velocity = 14f; 
     [SerializeField] private float speed = 7f; 
-    [SerializeField] private int maxHealth = 10; 
+    public int maxHealth = 10; 
     [SerializeField] private float flashTime = .5f; 
     [SerializeField] private float dashingPower = 24f; 
     [SerializeField] private float dashingTime = 0.2f; 
     [SerializeField] private float dashingCooldown = 1f; 
 
     [Header ("Melee Settings")]
-    [SerializeField] private float attackRange = .75f;
+    [SerializeField] private float attackRange = .5f;
     [SerializeField] private int attackDamage = 10; 
 
     [Header ("Range Settings")]
@@ -39,9 +38,7 @@ public class PlayerController : MonoBehaviour
     public float bulletSpeed; 
     public bool isCharging = false; 
     public float rotZ; 
-   
-    // Private Ints
-    private int currentHealth; 
+    public int currentHealth; 
 
     // Private Components 
     private Rigidbody2D rigb; 
@@ -49,7 +46,10 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager; 
     private Animator anim; 
     private GameObject bullet; 
-    private SpriteRenderer sprite; 
+    private SpriteRenderer sprite;
+    private ParticleSystem tr;  
+    private ParticleSystem jumpParticle;  
+    private ParticleSystem weaponParticle; 
 
     // Private bools 
     private bool facingRight = true; 
@@ -72,6 +72,9 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth = maxHealth; 
         rigb = GetComponent<Rigidbody2D>();
+        tr = GameObject.Find("TrailParticle").GetComponent<ParticleSystem>();
+        jumpParticle = GameObject.Find("FeetParticle").GetComponent<ParticleSystem>();
+        weaponParticle = GameObject.Find("WeaponParticle").GetComponent<ParticleSystem>();
         coll = GetComponent<BoxCollider2D>(); 
         anim = GetComponent<Animator>(); 
         sprite = GetComponent<SpriteRenderer>(); 
@@ -131,14 +134,22 @@ public class PlayerController : MonoBehaviour
                 if (OnGround() && !jumping && !isDashing && !inPlatform && !meleeAttacking && !isCharging)
                 {
                     hasCollided = false; 
-                    jumping = true; 
+                    jumping = true;
+                    StartCoroutine(PlayParticle(.2f, jumpParticle));  
                     StartJump(); 
                     rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
                 }
-            
             }
         }
     }  
+
+    // Plays particle for certain time
+    public IEnumerator PlayParticle(float time, ParticleSystem particle)
+    {
+        particle.Play();
+        yield return new WaitForSeconds(time);
+        particle.Stop(); 
+    }
 
     // Runs when melee animaiton ends 
     private void EndMelee()
@@ -211,6 +222,8 @@ public class PlayerController : MonoBehaviour
     {
         facingRight = !facingRight; 
         transform.Rotate(0f, 180f, 0f);
+
+        jumpParticle.gameObject.transform.Rotate(180f, 0f, 0f);
     }
 
     // Checks if the player is on the ground
@@ -224,7 +237,12 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Enemy_Hitbox")
         {
-            TakeDamage(2);
+            Enemy script = collision.GetComponentInParent<Enemy>();
+
+            if (!script.dead)
+            {
+                TakeDamage(2);
+            }
         }
         else if (collision.tag == "Bullet")
         {
@@ -252,6 +270,12 @@ public class PlayerController : MonoBehaviour
         }
 
         hasCollided = true; 
+    }
+
+    // Runs particle from animation
+    public void WalkingParticle()
+    {
+        StartCoroutine(PlayParticle(.1f, jumpParticle));
     }
 
     // Runs when the player exits a collider 
@@ -388,6 +412,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true; 
 
         anim.SetBool("isDashing", true);
+        tr.Play(); 
         anim.SetTrigger("dash");
         
         float originalGravity = rigb.gravityScale;
@@ -396,8 +421,6 @@ public class PlayerController : MonoBehaviour
         if (!facingRight) rigb.velocity = new Vector2(transform.localScale.x * -dashingPower, 0f);
 
         else rigb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
-       
-        tr.emitting = true; 
 
         yield return new WaitForSeconds(dashingTime);
 
@@ -407,13 +430,12 @@ public class PlayerController : MonoBehaviour
 
     // End Dash
     private IEnumerator EndDash(float originalGravity)
-    {
-        tr.emitting = false;
-       
+    {  
         rigb.gravityScale = originalGravity; 
         isDashing = false; 
 
         anim.SetBool("isDashing", false);
+        tr.Stop(); 
 
         if (OnGround()) anim.SetBool("onGround", true);
         else anim.SetBool("onGround", false); 
@@ -443,5 +465,17 @@ public class PlayerController : MonoBehaviour
     private void EndShootAnim()
     {
         isCharging = false; 
+    }
+
+    // Plays Weapon Particle
+    public void PlayWeaponParticle()
+    {
+        weaponParticle.Play(); 
+    }
+
+    // Stops Weapon Particle
+    public void StopWeaponParticle()
+    {
+        weaponParticle.Stop(); 
     }
 }

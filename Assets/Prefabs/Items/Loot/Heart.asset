@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Heart
   m_EditorClassIdentifier: 
   lootType: Heart
-  dropChance: 30
+  dropChance: 100
   anim: {fileID: 9100000, guid: 2db2af1a37a279d408e2045cf97e24b9, type: 2}
+  particleIndex: 3

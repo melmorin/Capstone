@@ -38,6 +38,20 @@ public class LootBag : MonoBehaviour
             GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnpos, Quaternion.identity);
             lootGameObject.gameObject.tag = droppedItem.lootType; 
             lootGameObject.GetComponent<Animator>().runtimeAnimatorController = droppedItem.anim; 
+
+            ParticleSystem particle = lootGameObject.GetComponent<ParticleSystem>();
+            var ts = particle.textureSheetAnimation;
+            ts.rowIndex = droppedItem.particleIndex;
+
+            StartCoroutine(PlayLootParticle(.2f, particle));
         }
+    }
+
+    // Plays particle for certain time
+    private IEnumerator PlayLootParticle(float time, ParticleSystem particle)
+    {
+        particle.Play();
+        yield return new WaitForSeconds(time);
+        particle.Stop(); 
     }
 }

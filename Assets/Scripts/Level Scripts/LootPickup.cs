@@ -14,7 +14,7 @@ public class LootPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Heart")
+        if (other.tag == "Heart" && player.currentHealth != player.maxHealth)
         {
             Destroy(other.gameObject);
             player.TakeDamage(-2);

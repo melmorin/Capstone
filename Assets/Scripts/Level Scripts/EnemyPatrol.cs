@@ -5,14 +5,18 @@ using UnityEngine;
 public class EnemyPatrol : MonoBehaviour
 {
     [Header ("Settings")]
-    [SerializeField] private float moveSpeed = 1f; 
+    [SerializeField] private float moveSpeed = 1f;
     private Rigidbody2D rigb;
     private GameManager gameManager; 
+    private Enemy enemyScript; 
     private Animator anim; 
+    private bool facingRight = true; 
+
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyScript = GetComponent<Enemy>();
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
         rigb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>(); 
@@ -21,9 +25,9 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.gameOver)
+        if (!gameManager.gameOver && !enemyScript.dead)
         {
-            if (IsFacingRight())
+            if (facingRight)
             {
                 rigb.velocity = new Vector2(moveSpeed, 0f);
             }
@@ -31,6 +35,10 @@ public class EnemyPatrol : MonoBehaviour
             {
                 rigb.velocity = new Vector2(-moveSpeed, 0f);
             }
+        }
+        else 
+        {
+            rigb.velocity = new Vector2(0f, 0f); 
         }
     }
 
@@ -49,13 +57,16 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
-            transform.localScale = new Vector2(-(Mathf.Sign(rigb.velocity.x)), transform.localScale.y);
+            if (transform.rotation.y == 0)
+            {
+                transform.Rotate(0, 180, 0);
+                facingRight = false; 
+            }
+            else 
+            {
+                transform.Rotate(0, -180, 0);
+                facingRight = true; 
+            }
         }
-    }
-
-    // Checks which way the enemy is facing 
-    private bool IsFacingRight()
-    {
-        return transform.localScale.x > Mathf.Epsilon; 
     }
 }
