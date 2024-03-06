@@ -456,6 +456,7 @@ MonoBehaviour:
   healthSlider: {fileID: 3656352683337326944}
   fillImage: {fileID: 8135660045252225997}
   maxHealth: 10
+  dead: 0
 --- !u!70 &3424014935010790412
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1974,7 +1975,7 @@ ParticleSystem:
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
     tilesX: 4
-    tilesY: 4
+    tilesY: 5
     animationType: 1
     rowIndex: 1
     cycles: 1

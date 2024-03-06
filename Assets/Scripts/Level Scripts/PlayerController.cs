@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem tr;  
     private ParticleSystem jumpParticle;  
     private ParticleSystem weaponParticle; 
+    private CreateParticle particleScript;
 
     // Private bools 
     private bool facingRight = true; 
@@ -79,6 +80,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>(); 
         sprite = GetComponent<SpriteRenderer>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
+        particleScript = GameObject.Find("lootBag").GetComponent<CreateParticle>();
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
@@ -250,6 +252,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.tag == "Coin")
         {
+            particleScript.MakeParticle(collision.transform.position, collision.gameObject); 
             Destroy(collision.gameObject); 
             gameManager.AddCoin(); 
         }

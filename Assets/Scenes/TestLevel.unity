@@ -1664,10 +1664,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: test_enemy_flying
       objectReference: {fileID: 0}
-    - target: {fileID: 6620415049241119909, guid: 2886e3caf2306444cab9b775923bf871, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8122225491998008138, guid: 2886e3caf2306444cab9b775923bf871, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2413,10 +2409,6 @@ PrefabInstance:
     - target: {fileID: 6620415049241119909, guid: 2886e3caf2306444cab9b775923bf871, type: 3}
       propertyPath: m_Name
       value: test_enemy_flying
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620415049241119909, guid: 2886e3caf2306444cab9b775923bf871, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8122225491998008138, guid: 2886e3caf2306444cab9b775923bf871, type: 3}
       propertyPath: m_RootOrder
@@ -15372,7 +15364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d464aac46cf1345a9844ca6f0f84c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxEffect: 0.4
+  parallaxEffect: 0.5
 --- !u!1 &1338819100
 GameObject:
   m_ObjectHideFlags: 0
@@ -20967,6 +20959,7 @@ GameObject:
   - component: {fileID: 1629842010}
   - component: {fileID: 1629842012}
   - component: {fileID: 1629842011}
+  - component: {fileID: 1629842013}
   m_Layer: 11
   m_Name: lootBag
   m_TagString: Untagged
@@ -21046,6 +21039,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8222494, y: 1.2814887}
   m_EdgeRadius: 0
+--- !u!114 &1629842013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629842009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fc717cdd7b48345b2378516318659f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 2977757876349365760, guid: 0ae4c9cf52bb6204ebe073bf1452f4cd, type: 3}
 --- !u!4 &1639910609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3349217565601697579, guid: 9cd98c9a9763e0d43bf898a8c91d0862, type: 3}
@@ -21502,7 +21508,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 512d9c8e0ae7863488d908d1717fd294, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

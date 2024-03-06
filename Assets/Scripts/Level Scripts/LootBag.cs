@@ -43,15 +43,7 @@ public class LootBag : MonoBehaviour
             var ts = particle.textureSheetAnimation;
             ts.rowIndex = droppedItem.particleIndex;
 
-            StartCoroutine(PlayLootParticle(.2f, particle));
+            particle.Play();
         }
-    }
-
-    // Plays particle for certain time
-    private IEnumerator PlayLootParticle(float time, ParticleSystem particle)
-    {
-        particle.Play();
-        yield return new WaitForSeconds(time);
-        particle.Stop(); 
     }
 }

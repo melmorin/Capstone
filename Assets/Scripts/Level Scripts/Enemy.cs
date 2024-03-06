@@ -40,7 +40,11 @@ public class Enemy : MonoBehaviour
         StartCoroutine(PlayParticle()); 
         if (currentHealth <= 0)
         {
-            dead = true; 
+            dead = true;
+            if (!gameObject.GetComponent<EnemyPatrol>())
+            {
+                SetDeadBool(); 
+            }
         }
     }
 
