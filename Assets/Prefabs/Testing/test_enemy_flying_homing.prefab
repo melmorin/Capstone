@@ -435,6 +435,7 @@ MonoBehaviour:
   healthSlider: {fileID: 3913728715140916048}
   fillImage: {fileID: 7354873008748831448}
   maxHealth: 10
+  dead: 0
 --- !u!114 &1626134907422444847
 MonoBehaviour:
   m_ObjectHideFlags: 0

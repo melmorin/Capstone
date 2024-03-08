@@ -330,7 +330,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        else if (!invincibility)
+        else if (!invincibility || amount == 100)
         {
             currentHealth = currentHealth - amount;
 
