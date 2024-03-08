@@ -261,6 +261,7 @@ public class PlayerController : MonoBehaviour
     // Runs when the player exits a collider 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.gameObject.name); 
         if (collision.gameObject.tag == "Platform")
         {
             Vector3 hit = collision.contacts[0].normal;
@@ -271,7 +272,6 @@ public class PlayerController : MonoBehaviour
                 inPlatform = true; 
             }
         }
-
         hasCollided = true; 
     }
 
@@ -330,6 +330,9 @@ public class PlayerController : MonoBehaviour
         else if (!invincibility)
         {
             currentHealth = currentHealth - amount;
+
+            if (currentHealth > maxHealth) currentHealth = maxHealth; 
+
             UpdateHealth(amount); 
             StartCoroutine(FlashColor(amount)); 
         }
