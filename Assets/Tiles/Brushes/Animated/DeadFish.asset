@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
   m_Name: DeadFish
   m_EditorClassIdentifier: 
-  m_AnimatedSprites: []
+  m_AnimatedSprites:
+  - {fileID: 689369898, guid: 9520565c2c7e06f47b4df325b00ba1f1, type: 3}
+  - {fileID: -106105325, guid: 9520565c2c7e06f47b4df325b00ba1f1, type: 3}
+  - {fileID: -698530245, guid: 9520565c2c7e06f47b4df325b00ba1f1, type: 3}
+  - {fileID: -106105325, guid: 9520565c2c7e06f47b4df325b00ba1f1, type: 3}
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
