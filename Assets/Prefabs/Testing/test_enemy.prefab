@@ -1975,7 +1975,7 @@ ParticleSystem:
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
     tilesX: 4
-    tilesY: 5
+    tilesY: 6
     animationType: 1
     rowIndex: 1
     cycles: 1

@@ -17,12 +17,14 @@ public class EnemyShoot : MonoBehaviour
     private Transform player; 
     public bool canMove; 
     private GameManager gameManager;
+    private Enemy enemyScript; 
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
+        enemyScript = GetComponent<Enemy>(); 
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class EnemyShoot : MonoBehaviour
                 canMove = true;  
             }
 
-            if (distanceFromPlayer <= shootingRange && nextFireTime < Time.time)
+            if (distanceFromPlayer <= shootingRange && nextFireTime < Time.time && !enemyScript.dead)
             {
                 Instantiate(bullet, bulletParent.transform.position, Quaternion.identity);
                 nextFireTime = Time.time + fireRate; 

@@ -19,10 +19,12 @@ public class Enemy : MonoBehaviour
     private float fillValue; 
     private Animator anim; 
     private SpriteRenderer sprite;
+    private ParticleSystem particle; 
 
     // Start is called before the first frame update
     void Start()
     {
+        particle = gameObject.GetComponent<ParticleSystem>();
         currentHealth = maxHealth; 
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
@@ -60,9 +62,9 @@ public class Enemy : MonoBehaviour
     // Plays the hit particle effect
     private IEnumerator PlayParticle()
     {
-        gameObject.GetComponent<ParticleSystem>().Play();
+        particle.Play();
         yield return new WaitForSeconds(.2f);
-        gameObject.GetComponent<ParticleSystem>().Stop();
+        particle.Stop();
     }
 
     // Performs all code related to enemy death

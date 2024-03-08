@@ -1696,7 +1696,7 @@ ParticleSystem:
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
     tilesX: 4
-    tilesY: 5
+    tilesY: 6
     animationType: 1
     rowIndex: 2
     cycles: 1
@@ -6755,7 +6755,7 @@ ParticleSystem:
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
     tilesX: 4
-    tilesY: 5
+    tilesY: 6
     animationType: 1
     rowIndex: 4
     cycles: 1

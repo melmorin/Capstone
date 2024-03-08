@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             anim.SetFloat("rotZ", rotZ);
 
             // Dash 
-            if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking)
+            if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking && !isCharging)
             {
                 StartCoroutine(Dash());
             }
