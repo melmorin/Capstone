@@ -256,12 +256,15 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject); 
             gameManager.AddCoin(); 
         }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            TakeDamage(100);
+        }
     }
 
     // Runs when the player exits a collider 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name); 
         if (collision.gameObject.tag == "Platform")
         {
             Vector3 hit = collision.contacts[0].normal;
