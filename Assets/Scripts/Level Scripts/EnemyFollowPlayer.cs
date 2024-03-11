@@ -7,12 +7,14 @@ public class EnemyFollowPlayer : MonoBehaviour
     [Header ("Settings")]
     [SerializeField] private float moveSpeed = 2;
     [SerializeField] private float lineOfSite = 10;
+    [SerializeField] private bool shouldFlip = true; 
     private Enemy enemyScript; 
     private Transform player; 
     private EnemyShoot enemyShoot; 
     private bool canMove = true; 
     private GameManager gameManager; 
     bool facingRight = false; 
+    bool isHoming; 
 
     // Start is called before the first frame update
     void Start()
@@ -33,11 +35,11 @@ public class EnemyFollowPlayer : MonoBehaviour
 
             float vectorDis = (player.position - transform.position).x; 
 
-            if (vectorDis < 0 && facingRight)
+            if (vectorDis < 0 && facingRight && shouldFlip)
             {
                 Flip(); 
             }
-            else if (vectorDis > 0 && !facingRight)
+            else if (vectorDis > 0 && !facingRight && shouldFlip)
             {
                 Flip();
             }

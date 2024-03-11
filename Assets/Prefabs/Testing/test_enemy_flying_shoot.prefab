@@ -5278,6 +5278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   lineOfSite: 10
+  shouldFlip: 1
 --- !u!114 &4048253701666289310
 MonoBehaviour:
   m_ObjectHideFlags: 0

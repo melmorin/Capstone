@@ -231,7 +231,9 @@ public class PlayerController : MonoBehaviour
     // Checks if the player is on the ground
     private bool OnGround()
     { 
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+        //return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+
+        return Physics2D.BoxCast(coll.bounds.min, new Vector2(coll.bounds.size.x, .1f), 0f, Vector2.down, .1f, jumpableGround);
     }
 
     // Checks to see if the player enters a trigger 
@@ -446,7 +448,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isDashing", false);
         tr.Stop(); 
 
-        if (OnGround()) anim.SetBool("onGround", true);
+        if (OnGround() && !inPlatform) anim.SetBool("onGround", true);
         else anim.SetBool("onGround", false); 
 
         yield return new WaitForSeconds(dashingCooldown);

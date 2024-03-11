@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
     // If bullet hits player it disappears 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" || collision.tag == "Player_Bullet")
+        if (collision.tag == "Player" || collision.tag == "Player_Bullet" || collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
         }

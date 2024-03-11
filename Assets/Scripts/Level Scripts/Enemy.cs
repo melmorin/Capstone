@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0)
         {
             dead = true;
-            if (!gameObject.GetComponent<EnemyPatrol>())
+            if (anim.runtimeAnimatorController.name !="ground_enemy" || anim.runtimeAnimatorController.name != "homing_enemy")
             {
                 SetDeadBool(); 
             }
