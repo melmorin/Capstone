@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>(); 
         sprite = GetComponent<SpriteRenderer>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
-        particleScript = GameObject.Find("lootBag").GetComponent<CreateParticle>();
+        particleScript = GameObject.Find("GameManager").GetComponent<CreateParticle>(); 
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
@@ -99,15 +99,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!dead)
+        // Movement
+        dirX = Input.GetAxisRaw("Horizontal");
+        anim.SetFloat("speed", Mathf.Abs(dirX)); 
+
+        // firepoint rotation 
+        anim.SetFloat("rotZ", rotZ);
+
+        if (!dead && !gameManager.gameOver)
         {
-            // Movement
-            dirX = Input.GetAxisRaw("Horizontal");
-            anim.SetFloat("speed", Mathf.Abs(dirX)); 
-
-            // firepoint rotation 
-            anim.SetFloat("rotZ", rotZ);
-
             // Dash 
             if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking && !isCharging)
             {
@@ -142,6 +142,13 @@ public class PlayerController : MonoBehaviour
                     rigb.velocity = new Vector2(rigb.velocity.x, velocity);  
                 }
             }
+        }
+
+        else if (gameManager.gameOver && !dead)
+        {
+            anim.SetTrigger("win");
+            anim.SetBool("airborn", true); 
+            rigb.gravityScale = 15f; 
         }
     }  
 
@@ -191,7 +198,7 @@ public class PlayerController : MonoBehaviour
     // Moves the player at a fixed rate 
     private void FixedUpdate()
     {
-        if (!gameManager.gameOver)
+        if (!gameManager.gameOver && !dead)
         {
             if (isDashing)
             {
@@ -200,9 +207,7 @@ public class PlayerController : MonoBehaviour
 
             if (!meleeAttacking && !isCharging)
             {
-
                 rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
-
                 anim.SetFloat("velocity_y", rigb.velocity.y);
 
                 if (dirX < 0 && facingRight) 
@@ -239,28 +244,31 @@ public class PlayerController : MonoBehaviour
     // Checks to see if the player enters a trigger 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy_Hitbox")
+        if (!gameManager.gameOver && !dead)
         {
-            Enemy script = collision.GetComponentInParent<Enemy>();
-
-            if (!script.dead)
+            if (collision.tag == "Enemy_Hitbox")
             {
-                TakeDamage(2);
+                Enemy script = collision.GetComponentInParent<Enemy>();
+
+                if (!script.dead)
+                {
+                    TakeDamage(2);
+                }
             }
-        }
-        else if (collision.tag == "Bullet")
-        {
-            TakeDamage(1);
-        }
-        else if (collision.tag == "Coin")
-        {
-            particleScript.MakeParticle(collision.transform.position, collision.gameObject); 
-            Destroy(collision.gameObject); 
-            gameManager.AddCoin(); 
-        }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
-        {
-            TakeDamage(100);
+            else if (collision.tag == "Bullet")
+            {
+                TakeDamage(1);
+            }
+            else if (collision.tag == "Coin")
+            {
+                particleScript.MakeParticle(collision.transform.position, collision.gameObject); 
+                Destroy(collision.gameObject); 
+                gameManager.AddCoin(); 
+            }
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+            {
+                TakeDamage(100);
+            }
         }
     }
 
@@ -311,7 +319,6 @@ public class PlayerController : MonoBehaviour
         }
 
         hasCollided = false; 
-
         anim.SetBool("airborn", false); 
         anim.ResetTrigger("jump");
         anim.SetTrigger("Hit_Ground");

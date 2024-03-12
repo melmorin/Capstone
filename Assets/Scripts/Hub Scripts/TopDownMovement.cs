@@ -11,12 +11,14 @@ public class TopDownMovement : MonoBehaviour
     private Vector2 movement;
     private Vector2 lastDirection; 
     private bool facingLeft = false; 
+    private ParticleSystem particles; 
 
     // Start is called before the first frame 
     void Start()
     {
         anim = GetComponent<Animator>(); 
         rigb = GetComponent<Rigidbody2D>(); 
+        particles = GetComponent<ParticleSystem>(); 
     }
 
     // Update calls once per frame 
@@ -72,4 +74,14 @@ public class TopDownMovement : MonoBehaviour
 
         movement.Normalize();
     }
+
+    // Plays movement particle
+    public IEnumerator PlayParticle()
+    {
+        particles.Play(); 
+        yield return new WaitForSeconds(.2f);
+        particles.Stop(); 
+        yield return new WaitForSeconds(2f);
+    }
+
 }

@@ -9,31 +9,31 @@ public class EndGame : MonoBehaviour
     [Header ("Dependancies")]
     [SerializeField] Sprite sprite; 
     [SerializeField] string endText; 
-    private GameObject endScreen; 
-    private TextMeshProUGUI endTextUI; 
+    [SerializeField] private GameObject endScreen; 
+    [SerializeField] private TextMeshProUGUI endTextUI; 
     private GameManager gameManager; 
-    private SpriteRenderer renderer; 
+    private CreateParticle makeParticle;
+    private SpriteRenderer render; 
 
     // Start is called before the first frame update
     void Start()
     {
-        endScreen = GameObject.Find("endMenu");
-        endTextUI = GameObject.Find("endText").GetComponent<TextMeshProUGUI>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        renderer = GetComponent<SpriteRenderer>(); 
-        renderer.sprite = sprite; 
+        makeParticle = GameObject.Find("GameManager").GetComponent<CreateParticle>();
+        render = GetComponent<SpriteRenderer>(); 
+        render.sprite = sprite; 
         StartCoroutine(BobItem()); 
     }
 
     // Animates the item
     private IEnumerator BobItem()
     {
-        while(!gameManager.gameOver)
+        while(true)
         {
-            transform.Translate(new Vector2(0, -.5f));
-            yield return new WaitForSeconds(.1f);
-            transform.Translate(new Vector2(0, .5f));
-            yield return new WaitForSeconds(.1f);
+            transform.Translate(new Vector2(0, -.05f));
+            yield return new WaitForSeconds(.75f);
+            transform.Translate(new Vector2(0, .05f));
+            yield return new WaitForSeconds(.75f);
         }
     }
 
@@ -45,6 +45,8 @@ public class EndGame : MonoBehaviour
             endTextUI.text = endText; 
             endScreen.SetActive(true); 
             gameManager.gameOver = true; 
+            makeParticle.MakeParticle(transform.position, gameObject);
+            Destroy(gameObject);  
         }
     }
 }

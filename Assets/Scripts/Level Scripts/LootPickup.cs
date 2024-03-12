@@ -11,7 +11,7 @@ public class LootPickup : MonoBehaviour
     private void Start()
     {
         player = transform.parent.GetComponent<PlayerController>(); 
-        particleScript = GetComponent<CreateParticle>(); 
+        particleScript = GameObject.Find("GameManager").GetComponent<CreateParticle>(); 
     }
 
     private void OnTriggerEnter2D(Collider2D other)

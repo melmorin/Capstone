@@ -79,4 +79,9 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true; 
     }
+
+    public void ChangeScene(int screenBuildIndex)
+    {
+        SceneManager.LoadScene(screenBuildIndex, LoadSceneMode.Single);
+    }
 }

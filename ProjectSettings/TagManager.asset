@@ -68,7 +68,7 @@ TagManager:
   - name: Terrain
     uniqueID: 117356449
     locked: 0
-  - name: NPC
+  - name: Dynamic
     uniqueID: 2539899445
     locked: 0
   - name: Items
