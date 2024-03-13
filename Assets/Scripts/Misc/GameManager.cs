@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject deathScreen; 
     [SerializeField] private GameObject pauseScreen; 
     [SerializeField] private TextMeshProUGUI coinText; 
+    [SerializeField] private TextMeshProUGUI promptText; 
     public static bool gameIsPaused = false; 
     public bool gameOver = false; 
     private int coinCount = 0; 
@@ -83,5 +84,19 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(int screenBuildIndex)
     {
         SceneManager.LoadScene(screenBuildIndex, LoadSceneMode.Single);
+    }
+
+    public void ToggleButtonPrompt(string prompt)
+    {
+        if (promptText.gameObject.activeInHierarchy)
+        {
+            promptText.text = ""; 
+            promptText.gameObject.SetActive(false); 
+        }
+        else 
+        {
+            promptText.gameObject.SetActive(true); 
+            promptText.text = prompt; 
+        }
     }
 }

@@ -1009,6 +1009,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: terrian_tileset_41
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e867fe7dc3709324fb3fedb7270c4da1
+      internalID: 1154883051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1056,6 +1077,7 @@ TextureImporter:
       terrian_tileset_39: -273383011
       terrian_tileset_4: 1004317626
       terrian_tileset_40: 679719212
+      terrian_tileset_41: 1154883051
       terrian_tileset_5: 1696254387
       terrian_tileset_6: -1704864295
       terrian_tileset_7: 1715923804

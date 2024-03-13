@@ -11,10 +11,13 @@ public class NPC : MonoBehaviour
     [SerializeField] private Sprite npcProfile; 
     [SerializeField] private Sprite npcSprite; 
     [SerializeField] private string[] dialogue; 
+    [SerializeField] private string[] secondDialogue; 
 
     private SpriteRenderer sprite; 
     private bool playerIsClose;
     private DialogueController dialogueController;
+    private GameManager gameManager;
+    private bool readOnce = false; 
 
     // Runs before the first frame 
     void Start()
@@ -22,6 +25,7 @@ public class NPC : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>(); 
         sprite.sprite = npcSprite; 
         dialogueController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<DialogueController>(); 
+        gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
     }
 
     // Runs every frame 
@@ -37,16 +41,32 @@ public class NPC : MonoBehaviour
             else 
             {
                 dialogueController.dialoguePanel.SetActive(true); 
-                dialogueController.currentDialogue = dialogue; 
+                if (readOnce) dialogueController.currentDialogue = secondDialogue; 
+                else dialogueController.currentDialogue = dialogue; 
                 dialogueController.profileImage.sprite = npcProfile; 
                 dialogueController.nameText.text = npcName; 
-                dialogueController.typingRoutine = StartCoroutine(dialogueController.Typing()); 
+                dialogueController.typingRoutine = StartCoroutine(dialogueController.Typing());
+                while (dialogueController.dialoguePanel.activeInHierarchy) 
+                {
+                    if (dialogueController.index !< dialogueController.currentDialogue.Length - 1)
+                    {
+                        readOnce = true; 
+                    }
+                }
             }
         }
 
-        if (dialogue.Length - 1 >= dialogueController.index)
+        if (dialogue.Length - 1 >= dialogueController.index && !readOnce)
         {
             if (dialogueController.dialogueText.text == dialogue[dialogueController.index])
+            {
+                dialogueController.continueButton.SetActive(true); 
+                dialogueController.skipButton.SetActive(false); 
+            }
+        }
+        else if (secondDialogue.Length - 1 >= dialogueController.index && readOnce)
+        {
+            if (dialogueController.dialogueText.text == secondDialogue[dialogueController.index])
             {
                 dialogueController.continueButton.SetActive(true); 
                 dialogueController.skipButton.SetActive(false); 
@@ -60,6 +80,7 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player")) 
         {
             playerIsClose = true;  
+            gameManager.ToggleButtonPrompt("Press E");
         }
     }
 
@@ -70,6 +91,7 @@ public class NPC : MonoBehaviour
         {
             playerIsClose = false; 
             dialogueController.ZeroText(); 
+            gameManager.ToggleButtonPrompt("");
         }
     }
 }
