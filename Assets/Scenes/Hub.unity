@@ -262,13 +262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08c360f4d71b3e4d9c2163e0b5f4ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: Mr. Test
+  npcName: Scooper
   npcProfile: {fileID: 21300000, guid: 42b97f7da816123468c72de18aca6daf, type: 3}
   npcSprite: {fileID: 21300000, guid: 2bb0b4d26d1990b4684a63a917ec8cf5, type: 3}
   dialogue:
   - Hello chap!
   - This is the new system of dialogue
   - Cool innit!
+  secondDialogue:
+  - You already talked to me
+  readOnce: 0
 --- !u!70 &149522159
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3841,6 +3844,7 @@ MonoBehaviour:
   wordSpeed: 0.03
   index: 0
   currentDialogue: []
+  currentNPC: {fileID: 0}
 --- !u!114 &303103329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4043,7 +4047,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -4096,7 +4100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08c360f4d71b3e4d9c2163e0b5f4ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: The Other One
+  npcName: The Sheriff
   npcProfile: {fileID: 21300000, guid: 8eabbe5613f4d8942a96a068fb8fb272, type: 3}
   npcSprite: {fileID: 21300000, guid: 2d9717e4d4c79e745aa7a40817654fc8, type: 3}
   dialogue:
@@ -4110,6 +4114,9 @@ MonoBehaviour:
     commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
     esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  secondDialogue:
+  - You already talked to me
+  readOnce: 0
 --- !u!70 &457348881
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -22356,7 +22356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7991157993206394040, guid: a03b17f59faed054380a86815a37ef87, type: 3}
       propertyPath: readText
-      value: Don't Die! - The Sherrif
+      value: Don't Die! - The Sheriff
       objectReference: {fileID: 0}
     - target: {fileID: 8655600106104708236, guid: a03b17f59faed054380a86815a37ef87, type: 3}
       propertyPath: m_Name
