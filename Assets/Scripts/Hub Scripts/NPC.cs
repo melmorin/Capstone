@@ -8,24 +8,21 @@ public class NPC : MonoBehaviour
 {
     [Header ("NPC Information")]
     [SerializeField] private string npcName; 
-    [SerializeField] private Sprite npcProfile; 
-    [SerializeField] private Sprite npcSprite; 
+    [SerializeField] private Sprite[] npcProfiles; 
+    [SerializeField] private Sprite[] npcSecondProfiles; 
     [SerializeField] private string[] dialogue; 
     [SerializeField] private string[] secondDialogue; 
 
-    private SpriteRenderer sprite; 
     private bool playerIsClose;
     private DialogueController dialogueController;
-    private GameManager gameManager;
 
     [Header ("Runtime Vars")]
     public bool readOnce = false; 
+    public GameManager gameManager;
 
     // Runs before the first frame 
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>(); 
-        sprite.sprite = npcSprite; 
         dialogueController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<DialogueController>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
     }
@@ -41,10 +38,27 @@ public class NPC : MonoBehaviour
             }
             else 
             {
-                dialogueController.dialoguePanel.SetActive(true); 
-                if (readOnce) dialogueController.currentDialogue = secondDialogue; 
-                else dialogueController.currentDialogue = dialogue; 
-                dialogueController.profileImage.sprite = npcProfile; 
+                dialogueController.dialoguePanel.SetActive(true);  
+                gameManager.ToggleButtonPrompt("");
+                if (dialogueController.continueButton.activeInHierarchy)
+                {
+                    dialogueController.continueButton.SetActive(false); 
+                }
+                if (!dialogueController.skipButton.activeInHierarchy)
+                {
+                    dialogueController.skipButton.SetActive(true); 
+                }
+                if (readOnce) 
+                {
+                    dialogueController.currentDialogue = secondDialogue;
+                    dialogueController.currentProfiles = npcSecondProfiles; 
+                }
+                else 
+                {
+                    dialogueController.currentDialogue = dialogue; 
+                    dialogueController.currentProfiles = npcProfiles;
+                }
+
                 dialogueController.currentNPC = gameObject; 
                 dialogueController.nameText.text = npcName; 
                 dialogueController.StartTypingRoutine();
@@ -58,7 +72,7 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player")) 
         {
             playerIsClose = true;  
-            gameManager.ToggleButtonPrompt("Press E");
+            gameManager.ToggleButtonPrompt("Press E to Talk");
         }
     }
 

@@ -22,7 +22,7 @@ public class DialogueController : MonoBehaviour
     [Header ("Runtime Public Vars")]
     public int index = 0;  
     public string[] currentDialogue;
-    public Coroutine typingRoutine; 
+    public Sprite[] currentProfiles;
     public GameObject currentNPC;  
 
     // Adds listener to the continue button for NextLine()
@@ -47,13 +47,14 @@ public class DialogueController : MonoBehaviour
     // Moves onto the next line of dialogue or closes window 
     private void Nextline()
     {
+        StopAllCoroutines(); 
         continueButton.SetActive(false); 
         skipButton.SetActive(true); 
         if (index < currentDialogue.Length - 1)
         {
             index++; 
             dialogueText.text = ""; 
-            typingRoutine = StartCoroutine(Typing()); 
+            StartCoroutine(Typing()); 
         }
         else 
         {
@@ -61,29 +62,29 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    // Begins coroutine for the BPC script
+    // Begins coroutine for the NPC script
     public void StartTypingRoutine()
     {
-        typingRoutine = StartCoroutine(Typing()); 
+        StartCoroutine(Typing()); 
     }
 
-    // checks if equal
-    public bool IsEqual()
+    // Stops the typing 
+    public void StopTypingRoutine()
     {
-        if (index == currentDialogue.Length - 1) return true; 
-        else return false;  
+        StopAllCoroutines();
     }
 
     // Stops the typing animation if the player skips the text
     public void SkipText()
     {
         dialogueText.text = currentDialogue[index];
-        StopCoroutine(typingRoutine); 
+        StopAllCoroutines();
     }
 
     // The typing animation 
     public IEnumerator Typing()
     {
+        profileImage.sprite = currentProfiles[index]; 
         foreach(char letter in currentDialogue[index].ToCharArray())
         {
             dialogueText.text += letter; 
@@ -94,9 +95,15 @@ public class DialogueController : MonoBehaviour
     // Closes down entire dialogue menu 
     public void ZeroText()
     {
-        StopCoroutine(typingRoutine); 
+        StopAllCoroutines();
         dialogueText.text = "";
-        if (index == currentDialogue.Length - 1) currentNPC.GetComponent<NPC>().readOnce = true; 
+        if (currentNPC != null)
+        {
+            NPC npcScript = currentNPC.GetComponent<NPC>(); 
+            if (index == currentDialogue.Length - 1) npcScript.readOnce = true; 
+            npcScript.gameManager.ToggleButtonPrompt("Press E to Talk"); 
+        }
+        
         index = 0; 
         if (dialoguePanel != null)
         {

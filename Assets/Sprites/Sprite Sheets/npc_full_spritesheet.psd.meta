@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e25ee45d82b0714ab50a44ebf2a9c53
+guid: e8b07fc510cc4214591d9da7e48a7447
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,169 +149,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: particles_two_spritesheet_0
+      name: npc_full_spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
+        y: 64
         width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 204c6fe4333b3d24098070845931d033
-      internalID: -548989612
+      spriteID: fa288a1970f41d24cbdf988c64c5e8c3
+      internalID: -531139378
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: particles_two_spritesheet_1
+      name: npc_full_spritesheet_1
       rect:
         serializedVersion: 2
         x: 32
-        y: 192
+        y: 64
         width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47aac9556a5ac44449a4c3860f078f29
-      internalID: 1082006406
+      spriteID: 476e47a69c3deec4dab820f61a968df5
+      internalID: -1367218507
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: particles_two_spritesheet_2
+      name: npc_full_spritesheet_2
       rect:
         serializedVersion: 2
         x: 64
-        y: 192
+        y: 64
         width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e091a69e89ce4454eb22e7ea90275047
-      internalID: 431395009
+      spriteID: 45ca2e11eb8f292409629a5f1a278280
+      internalID: 590449947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: particles_two_spritesheet_3
+      name: npc_full_spritesheet_3
       rect:
         serializedVersion: 2
         x: 96
-        y: 192
+        y: 64
         width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 543058686d9225141a46ffb0ca97e7e8
-      internalID: -1595492114
+      spriteID: 16842b203d44106468c78b66daaed973
+      internalID: -1457197299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: particles_two_spritesheet_4
+      name: npc_full_spritesheet_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
+        x: 128
+        y: 64
         width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0b4dce1efcb40447ae7c1755032f44f
-      internalID: -70728388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: particles_two_spritesheet_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79482c5cc161a874ea56323a45cbdf98
-      internalID: -1992202379
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: particles_two_spritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 550663e45f163ba4ca3c292b740b5b1b
-      internalID: 2048234591
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: particles_two_spritesheet_7
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3cdca8e7ab67bba438c8babbafd1dbc5
-      internalID: -565591800
+      spriteID: ebfa389b2420ec24f83c726c47e79b5c
+      internalID: 551042731
       vertices: []
       indices: 
       edges: []
@@ -327,14 +264,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      particles_two_spritesheet_0: -548989612
-      particles_two_spritesheet_1: 1082006406
-      particles_two_spritesheet_2: 431395009
-      particles_two_spritesheet_3: -1595492114
-      particles_two_spritesheet_4: -70728388
-      particles_two_spritesheet_5: -1992202379
-      particles_two_spritesheet_6: 2048234591
-      particles_two_spritesheet_7: -565591800
+      npc_full_spritesheet_0: -531139378
+      npc_full_spritesheet_1: -1367218507
+      npc_full_spritesheet_2: 590449947
+      npc_full_spritesheet_3: -1457197299
+      npc_full_spritesheet_4: 551042731
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
