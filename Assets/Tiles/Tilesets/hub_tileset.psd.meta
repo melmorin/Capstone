@@ -514,7 +514,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.55, y: 0.15}
+      pivot: {x: 0.551198, y: 0.15258622}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -535,7 +535,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.12}
+      pivot: {x: 0.4890294, y: 0.13064432}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -543,6 +543,69 @@ TextureImporter:
       bones: []
       spriteID: cd358f6078a8f974c9908c9a37757877
       internalID: -1604776732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hub_tileset_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb607400c49bc0b4383d36a9c2560ba8
+      internalID: 94201035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hub_tileset_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 394f2a5b56c0dc3468e036f690fbd70e
+      internalID: 1141153781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hub_tileset_21
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ad8024289e0bb4488fe172bdaab1c4
+      internalID: -160624262
       vertices: []
       indices: 
       edges: []
@@ -569,7 +632,10 @@ TextureImporter:
       hub_tileset_16: -2052074069
       hub_tileset_17: 1247867721
       hub_tileset_18: -1604776732
+      hub_tileset_19: 94201035
       hub_tileset_2: -1244044067
+      hub_tileset_20: 1141153781
+      hub_tileset_21: -160624262
       hub_tileset_3: 949651101
       hub_tileset_4: -406620511
       hub_tileset_5: -414170202

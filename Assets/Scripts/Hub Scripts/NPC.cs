@@ -82,7 +82,7 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false; 
-            dialogueController.ZeroText(); 
+            if (dialogueController != null) dialogueController.ZeroText(); 
             gameManager.ToggleButtonPrompt("");
         }
     }

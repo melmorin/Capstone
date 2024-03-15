@@ -88,15 +88,6 @@ public class GameManager : MonoBehaviour
 
     public void ToggleButtonPrompt(string prompt)
     {
-        if (promptText.gameObject.activeInHierarchy)
-        {
-            promptText.text = ""; 
-            promptText.gameObject.SetActive(false); 
-        }
-        else 
-        {
-            promptText.gameObject.SetActive(true); 
-            promptText.text = prompt; 
-        }
+        promptText.text = prompt; 
     }
 }

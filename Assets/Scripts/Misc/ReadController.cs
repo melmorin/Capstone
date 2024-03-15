@@ -11,8 +11,16 @@ public class ReadController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI readTextBox; 
     [SerializeField] private float wordSpeed;
 
+    private GameManager gameManager; 
+
     [Header ("Runtime Vars")]
     public Coroutine typingRoutine; 
+
+    // Plays on start 
+    void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
+    }
 
     // Starts coroutine 
     public void StartCurrentRoutine(string text)
@@ -39,5 +47,6 @@ public class ReadController : MonoBehaviour
         {
             readPanel.SetActive(false);          
         }
+        gameManager.ToggleButtonPrompt("Press E");
     }
 }

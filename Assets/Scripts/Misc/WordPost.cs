@@ -29,6 +29,7 @@ public class WordPost : MonoBehaviour
             else 
             {
                 readController.readPanel.SetActive(true);  
+                gameManager.ToggleButtonPrompt("");
                 readController.StartCurrentRoutine(readText);
             }
         }
