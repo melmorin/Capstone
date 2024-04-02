@@ -7,7 +7,7 @@ using TMPro;
 public class NPC : MonoBehaviour
 {
     [Header ("NPC Information")]
-    [SerializeField] private string npcName; 
+    public string npcName; 
     [SerializeField] private Sprite[] npcProfiles; 
     [SerializeField] private Sprite[] npcSecondProfiles; 
     [SerializeField] private string[] dialogue; 

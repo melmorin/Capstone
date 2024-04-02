@@ -11,14 +11,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen; 
     [SerializeField] private TextMeshProUGUI coinText; 
     [SerializeField] private TextMeshProUGUI promptText; 
-    public static bool gameIsPaused = false; 
+    [SerializeField] private GameObject sceneController;
+    public bool gameIsPaused = false; 
     public bool gameOver = false; 
     private int coinCount = 0; 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject sceneObject = GameObject.FindGameObjectWithTag("SceneManager"); 
+        if (sceneObject == null)
+        {
+            Instantiate(sceneController);
+        }
     }
 
     // Update is called once per frame
@@ -69,6 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 
@@ -83,6 +89,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int screenBuildIndex)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(screenBuildIndex, LoadSceneMode.Single);
     }
 

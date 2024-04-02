@@ -37,14 +37,15 @@ public class Node : MonoBehaviour {
 		if (transform.position == player.transform.position) 
 		{
 			currentNode = true;
+			if (levelName == "Entrance") Debug.Log(levelName);
 			if (!mapController.facingLeft) mapController.Flip();
 		} 
 		
 		else 
 		{
 			currentNode = false;
+			if (levelName == "Entrance") Debug.Log(levelName);
 		}
-
 		if (currentNode) 
 		{
 			// Activates menu if level if available 

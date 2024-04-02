@@ -25,10 +25,18 @@ public class DialogueController : MonoBehaviour
     public Sprite[] currentProfiles;
     public GameObject currentNPC;  
 
+    private SceneController sceneController; 
+
     // Adds listener to the continue button for NextLine()
     void Awake()
     {
         continueButton.GetComponent<Button>().onClick.AddListener(Nextline);
+    }
+
+    // Runs on start 
+    void Start()
+    {
+        sceneController = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
     }
 
     // Updates every frame 
@@ -100,7 +108,18 @@ public class DialogueController : MonoBehaviour
         if (currentNPC != null)
         {
             NPC npcScript = currentNPC.GetComponent<NPC>(); 
-            if (index == currentDialogue.Length - 1) npcScript.readOnce = true; 
+            if (index == currentDialogue.Length - 1) 
+            {
+                npcScript.readOnce = true; 
+                if (npcScript.npcName == "Scooper")
+                {
+                    sceneController.scooperTalkedTo = true; 
+                }
+                else if (npcScript.npcName == "The Sheriff")
+                {
+                    sceneController.sheriffTalkedTo = true; 
+                }
+            }
             npcScript.gameManager.ToggleButtonPrompt("Press E to Talk"); 
         }
         

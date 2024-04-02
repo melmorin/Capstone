@@ -8,14 +8,18 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f; 
     private Animator anim; 
     private Rigidbody2D rigb;
-    private Vector2 movement;
     private Vector2 lastDirection; 
     private bool facingLeft = false; 
     [SerializeField] private ParticleSystem particles; 
+    private GameManager gameManager; 
+
+    [Header ("Runtime Vars")]
+    public Vector2 movement;
 
     // Start is called before the first frame 
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
         anim = GetComponent<Animator>(); 
         rigb = GetComponent<Rigidbody2D>(); 
     }
@@ -23,12 +27,15 @@ public class TopDownMovement : MonoBehaviour
     // Update calls once per frame 
     private void Update()
     {
-        ProcessInputs();
-        Animate(); 
-
-        if (movement.x < 0 && !facingLeft || movement.x > 0 && facingLeft)
+        if (!gameManager.gameIsPaused)
         {
-            Flip();
+            ProcessInputs();
+            Animate(); 
+
+            if (movement.x < 0 && !facingLeft || movement.x > 0 && facingLeft)
+            {
+                Flip();
+            }
         }
     }
 

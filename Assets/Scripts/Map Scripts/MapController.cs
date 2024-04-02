@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class MapController : MonoBehaviour
 {
     [Header("Dependancies")]
-    [SerializeField] private GameObject player; 
     [SerializeField] private GameObject startPoint; 
     [SerializeField] private TextMeshProUGUI levelText; 
     [SerializeField] private GameObject levelMenu; 
@@ -21,10 +20,14 @@ public class MapController : MonoBehaviour
     private Vector2 movement;
     private Vector2 lastDirection; 
     private SpriteRenderer sprite; 
+    private float speed = 3f; 
+
+    private GameObject player; 
 
     // Start is called before the first frame update
     void Start()
     { 
+        player = GameObject.FindGameObjectWithTag("Player"); 
         anim = player.GetComponent<Animator>();
         player.transform.position = startPoint.transform.position; 
         sprite = player.GetComponent<SpriteRenderer>();
@@ -55,8 +58,26 @@ public class MapController : MonoBehaviour
     // Loads the scene to play a level 
     private void PlayGame()
     {
-        SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
+        if (currentNodeNumber == 1)
+        {
+            GameObject entrancePoint = GameObject.Find("EntrancePoint");
+            StartCoroutine(GoToEntrance(entrancePoint)); 
+        }
+        else SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
     }
+
+    IEnumerator GoToEntrance(GameObject entrancePoint)
+	{
+		Animate("Down");
+		yield return new WaitForSeconds(1/60);
+		while (player.transform.position != entrancePoint.transform.position) 
+		{
+			player.transform.position = Vector3.MoveTowards(player.transform.position, entrancePoint.transform.position, speed * Time.deltaTime);
+			yield return null;
+		}
+		Animate("Stop");
+        SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
+	}
 
     // Changes player animations based on the direction given
     public void Animate(string move)
