@@ -7,17 +7,25 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header ("If Applicable")]
     [SerializeField] private GameObject deathScreen; 
-    [SerializeField] private GameObject pauseScreen; 
     [SerializeField] private TextMeshProUGUI coinText; 
     [SerializeField] private TextMeshProUGUI promptText; 
+    public Sprite endItem; 
+    public string levelName; 
+
+    [Header ("Dependancies")]
+    public bool isLevel; 
+    [SerializeField] private GameObject pauseScreen; 
     [SerializeField] private GameObject sceneController;
+
+    [Header ("Runtime Vars")]
     public bool gameIsPaused = false; 
     public bool gameOver = false; 
-    private int coinCount = 0; 
+    public int coinCount = 0; 
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before start
+    void Awake()
     {
         GameObject sceneObject = GameObject.FindGameObjectWithTag("SceneManager"); 
         if (sceneObject == null)
@@ -98,3 +106,4 @@ public class GameManager : MonoBehaviour
         promptText.text = prompt; 
     }
 }
+

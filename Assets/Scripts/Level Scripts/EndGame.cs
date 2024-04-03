@@ -14,12 +14,15 @@ public class EndGame : MonoBehaviour
     private GameManager gameManager; 
     private CreateParticle makeParticle;
     private SpriteRenderer render; 
+    private SceneController sceneManager;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         makeParticle = GameObject.Find("GameManager").GetComponent<CreateParticle>();
+        
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
         render = GetComponent<SpriteRenderer>(); 
         render.sprite = sprite; 
         StartCoroutine(BobItem()); 
@@ -46,6 +49,7 @@ public class EndGame : MonoBehaviour
             endScreen.SetActive(true); 
             gameManager.gameOver = true; 
             makeParticle.MakeParticle(transform.position, gameObject);
+            sceneManager.LevelWin(); 
             Destroy(gameObject);  
         }
     }

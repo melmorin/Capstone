@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class Node : MonoBehaviour {
 
 	[Header("Level Info")] 
-	[SerializeField] private string levelName;
+	public string levelName;
 	[SerializeField] private int levelNumber;
+	[SerializeField] private int winsNeeded; 
 
 	[Header("Node Destinations")]
 	[SerializeField] private GameObject upDestination;
@@ -22,12 +23,14 @@ public class Node : MonoBehaviour {
 	private float dirX; 
 	private float dirY; 
 	private float speed = 3f; 
+	private SceneController sceneManager;
 
 	// Use this for initialization
 	void Start() 
 	{
 		gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
 		mapController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<MapController>();
+		sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
@@ -37,25 +40,42 @@ public class Node : MonoBehaviour {
 		if (transform.position == player.transform.position) 
 		{
 			currentNode = true;
-			if (levelName == "Entrance") Debug.Log(levelName);
 			if (!mapController.facingLeft) mapController.Flip();
 		} 
 		
 		else 
 		{
 			currentNode = false;
-			if (levelName == "Entrance") Debug.Log(levelName);
 		}
 		if (currentNode) 
 		{
-			// Activates menu if level if available 
+			// Activates menu of level if available 
 			if (levelName == "")
 			{
 				mapController.SetMenuActive(false);
+				mapController.SetLockedMenu(false); 
 			}
 			else 
-			{
-				mapController.SetMenuActive(true, levelName, levelNumber);
+			{	
+				if (sceneManager.LevelsWon() < winsNeeded)
+				{
+					mapController.SetLockedMenu(true, winsNeeded); 
+				}
+
+				else 
+				{
+					int index = -1; 
+					for (int i = 0; i < sceneManager.levelInfo.Count; i++)
+					{ 
+						if (sceneManager.levelInfo[i].levelName == levelName) index = i; 
+					}
+
+					if (index != -1)
+					{
+						mapController.SetMenuActive(true, levelName, levelNumber, sceneManager.levelInfo[index].hasWon, sceneManager.levelInfo[index].maxCoins, sceneManager.levelInfo[index].coinsFound, sceneManager.levelInfo[index].endItem);
+					}
+					else mapController.SetMenuActive(true, levelName, levelNumber); 
+				}
 			}
 
 			// Checks to see if any destination is null 
@@ -71,6 +91,8 @@ public class Node : MonoBehaviour {
 					{
 						currentNode = false;
 						mapController.SetMenuActive(false);
+						mapController.SetLockedMenu(false); 
+						mapController.lastDirX = "Down"; 
 						StartCoroutine(DoUp()); 
 					}
 				} 
@@ -81,6 +103,8 @@ public class Node : MonoBehaviour {
 					{
 						currentNode = false;
 						mapController.SetMenuActive(false);
+						mapController.SetLockedMenu(false); 
+						mapController.lastDirX = "Up"; 
 						StartCoroutine(DoDown()); 
 					}
 				} 
@@ -92,6 +116,8 @@ public class Node : MonoBehaviour {
 						currentNode = false;
 						if (!mapController.facingLeft) mapController.Flip();
 						mapController.SetMenuActive(false);
+						mapController.SetLockedMenu(false); 
+						mapController.lastDirX = "Right"; 
 						StartCoroutine(DoLeft()); 
 					}
 				} 
@@ -103,6 +129,8 @@ public class Node : MonoBehaviour {
 						currentNode = false;
 						if (mapController.facingLeft) mapController.Flip();
 						mapController.SetMenuActive(false);
+						mapController.SetLockedMenu(false); 
+						mapController.lastDirX = "Left"; 
 						StartCoroutine(DoRight()); 
 					}
 				}								

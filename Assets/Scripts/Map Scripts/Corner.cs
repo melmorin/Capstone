@@ -29,6 +29,8 @@ public class Corner : MonoBehaviour {
 	{
 		if (transform.position == player.transform.position) 
 		{
+			if (mapController.lastDirX == directionReverse) flip = false;
+			else flip = true; 
 			StartCoroutine (DoFollow ());
 		}
 	}
@@ -48,8 +50,7 @@ public class Corner : MonoBehaviour {
 				player.transform.position = Vector3.MoveTowards (player.transform.position, destination.transform.position, speed * Time.deltaTime);
 				yield return null;
 			}
-			mapController.Animate("Stop"); 
-			flip = true; 			
+			mapController.Animate("Stop"); 		
 		}
 		else
 		{
@@ -63,7 +64,6 @@ public class Corner : MonoBehaviour {
 				yield return null;
 			}
 			mapController.Animate("Stop"); 
-			flip = false; 
 		}
 	}
 }

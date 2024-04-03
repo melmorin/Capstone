@@ -12,16 +12,23 @@ public class MapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText; 
     [SerializeField] private GameObject levelMenu; 
     [SerializeField] private Button playButton; 
+    [SerializeField] private GameObject winMenu; 
+    [SerializeField] private TextMeshProUGUI coinCountText; 
+    [SerializeField] private Image endItem; 
+    [SerializeField] private GameObject trophy; 
+    [SerializeField] private GameObject lockedMenu; 
+    [SerializeField] private TextMeshProUGUI lockedText; 
 
     [Header("Runtime Vars")]
-    private Animator anim; 
+    public string lastDirX;
     public bool facingLeft = true; 
+
+    private Animator anim; 
     private int currentNodeNumber; 
     private Vector2 movement;
-    private Vector2 lastDirection; 
     private SpriteRenderer sprite; 
     private float speed = 3f; 
-
+    private SceneController sceneManager;
     private GameObject player; 
 
     // Start is called before the first frame update
@@ -29,8 +36,13 @@ public class MapController : MonoBehaviour
     { 
         player = GameObject.FindGameObjectWithTag("Player"); 
         anim = player.GetComponent<Animator>();
-        player.transform.position = startPoint.transform.position; 
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
+        if (sceneManager.lastLevel == "") player.transform.position = startPoint.transform.position; 
         sprite = player.GetComponent<SpriteRenderer>();
+
+        if (facingLeft) sprite.flipX = false; 
+        else sprite.flipX = true;
+        facingLeft = !facingLeft; 
     }
 
     // Called when activated 
@@ -48,12 +60,31 @@ public class MapController : MonoBehaviour
     }
 
     // Displays the menu for a level 
-    public void SetMenuActive(bool active, string levelName = "", int node = -1)
+    public void SetMenuActive(bool active, string levelName = "", int node = -1, bool hasWon = false, int maxCoins = 0, int coinCount = 0, Sprite endItemSprite = null)
     {
         levelMenu.SetActive(active); 
         levelText.text = levelName;
         currentNodeNumber = node; 
+
+        winMenu.SetActive(hasWon); 
+        coinCountText.text = coinCount + " / " + maxCoins; 
+        if (endItemSprite != null) endItem.sprite = endItemSprite; 
+
+        if (maxCoins == coinCount) trophy.SetActive(true);
+        else trophy.SetActive(false);
     }
+
+    // Activates the menu for a locked level 
+    public void SetLockedMenu(bool activate, int winsNeeded = -1)
+    {
+        if (activate)
+        {
+            lockedMenu.SetActive(true);
+            if (winsNeeded == 1) lockedText.text = "You need "+ winsNeeded +" more win to access this level";
+            else lockedText.text = "You need "+ winsNeeded +" more wins to access this level";
+        }
+        else lockedMenu.SetActive(false);
+    } 
 
     // Loads the scene to play a level 
     private void PlayGame()
@@ -68,10 +99,12 @@ public class MapController : MonoBehaviour
 
     IEnumerator GoToEntrance(GameObject entrancePoint)
 	{
+        SetMenuActive(false, "", 1);
 		Animate("Down");
 		yield return new WaitForSeconds(1/60);
 		while (player.transform.position != entrancePoint.transform.position) 
 		{
+            SetMenuActive(false, "", 1);
 			player.transform.position = Vector3.MoveTowards(player.transform.position, entrancePoint.transform.position, speed * Time.deltaTime);
 			yield return null;
 		}
