@@ -57,11 +57,11 @@ TagManager:
   - name: Background
     uniqueID: 3363898887
     locked: 0
-  - name: Platform
-    uniqueID: 2287417025
-    locked: 0
   - name: Back
     uniqueID: 2769206847
+    locked: 0
+  - name: Platform
+    uniqueID: 2287417025
     locked: 0
   - name: Player
     uniqueID: 2270399519

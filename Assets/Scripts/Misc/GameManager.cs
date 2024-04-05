@@ -80,6 +80,12 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void ReloadScene()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
+
     public void Restart()
     {
         Time.timeScale = 1f;
