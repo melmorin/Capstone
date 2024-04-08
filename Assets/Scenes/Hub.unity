@@ -777,7 +777,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1525760449
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -4649,11 +4649,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathScreen: {fileID: 0}
-  pauseScreen: {fileID: 1365994480}
   coinText: {fileID: 0}
   promptText: {fileID: 833212773}
-  sceneController: {fileID: 9076091950077834001, guid: d037d650a8fc05d4d9e864fb2df4c03e, type: 3}
+  pauseScreen: {fileID: 1365994480}
+  endItem: {fileID: 0}
+  levelName: 
+  isLevel: 0
+  sceneControllerObject: {fileID: 9076091950077834001, guid: d037d650a8fc05d4d9e864fb2df4c03e, type: 3}
+  gameIsPaused: 0
   gameOver: 0
+  coinCount: 0
 --- !u!114 &303103328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10741,7 +10746,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1525760449
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -16057,7 +16062,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1525760449
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -17006,7 +17011,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1525760449
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 94201035, guid: c1ff2325643f2e54c8d008857593acdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.34901962}
@@ -17156,7 +17161,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1525760449
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 94201035, guid: c1ff2325643f2e54c8d008857593acdb, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.34901962}
@@ -17240,7 +17245,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1525760449
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 94201035, guid: c1ff2325643f2e54c8d008857593acdb, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.34901962}

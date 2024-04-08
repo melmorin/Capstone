@@ -9,6 +9,10 @@ public class SceneController : MonoBehaviour
     private GameManager gameManager;
     private GameObject player;  
 
+    [Header ("Dependancies")]
+    [SerializeField] private Animator levelLoaderAnim; 
+    [SerializeField] private float transitionTime = 1f; 
+
     [Header ("Runtime Vars")]
     public bool scooperTalkedTo = false;
     public bool sheriffTalkedTo = false;  
@@ -26,6 +30,14 @@ public class SceneController : MonoBehaviour
         if (gameManager.isLevel) WhenLevel(); 
     }
 
+    // loads a scene with its animation
+    public IEnumerator LoadSceneAnim(int index)
+    {
+        levelLoaderAnim.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(index, LoadSceneMode.Single);
+    }
+
     // Runs on awake 
     void Awake()
     {
@@ -35,9 +47,11 @@ public class SceneController : MonoBehaviour
     // Runs every time a new scene is loaded 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        levelLoaderAnim.SetTrigger("End");
         if (scene.buildIndex != 0)
         {
             gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
+
             player = GameObject.FindGameObjectWithTag("Player"); 
 
             if (scene.buildIndex == 1)

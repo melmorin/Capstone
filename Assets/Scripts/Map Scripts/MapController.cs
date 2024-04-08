@@ -94,7 +94,7 @@ public class MapController : MonoBehaviour
             GameObject entrancePoint = GameObject.Find("EntrancePoint");
             StartCoroutine(GoToEntrance(entrancePoint)); 
         }
-        else SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
+        else StartCoroutine(sceneManager.LoadSceneAnim(currentNodeNumber));
     }
 
     IEnumerator GoToEntrance(GameObject entrancePoint)
@@ -109,7 +109,7 @@ public class MapController : MonoBehaviour
 			yield return null;
 		}
 		Animate("Stop");
-        SceneManager.LoadScene(currentNodeNumber, LoadSceneMode.Single);
+        StartCoroutine(sceneManager.LoadSceneAnim(currentNodeNumber));
 	}
 
     // Changes player animations based on the direction given

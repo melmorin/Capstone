@@ -13857,11 +13857,11 @@ MonoBehaviour:
   deathScreen: {fileID: 1777787676}
   coinText: {fileID: 0}
   promptText: {fileID: 0}
+  pauseScreen: {fileID: 1934271590}
   endItem: {fileID: 0}
   levelName: 
   isLevel: 0
-  pauseScreen: {fileID: 1934271590}
-  sceneController: {fileID: 9076091950077834001, guid: d037d650a8fc05d4d9e864fb2df4c03e, type: 3}
+  sceneControllerObject: {fileID: 9076091950077834001, guid: d037d650a8fc05d4d9e864fb2df4c03e, type: 3}
   gameIsPaused: 0
   gameOver: 0
   coinCount: 0

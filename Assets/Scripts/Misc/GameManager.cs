@@ -10,19 +10,21 @@ public class GameManager : MonoBehaviour
     [Header ("If Applicable")]
     [SerializeField] private GameObject deathScreen; 
     [SerializeField] private TextMeshProUGUI coinText; 
-    [SerializeField] private TextMeshProUGUI promptText; 
+    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private GameObject pauseScreen;  
     public Sprite endItem; 
     public string levelName; 
 
     [Header ("Dependancies")]
     public bool isLevel; 
-    [SerializeField] private GameObject pauseScreen; 
-    [SerializeField] private GameObject sceneController;
+    [SerializeField] private GameObject sceneControllerObject;
 
     [Header ("Runtime Vars")]
     public bool gameIsPaused = false; 
     public bool gameOver = false; 
     public int coinCount = 0; 
+
+    private SceneController sceneController; 
 
     // Awake is called before start
     void Awake()
@@ -30,14 +32,15 @@ public class GameManager : MonoBehaviour
         GameObject sceneObject = GameObject.FindGameObjectWithTag("SceneManager"); 
         if (sceneObject == null)
         {
-            Instantiate(sceneController);
+            Instantiate(sceneControllerObject);
         }
+        sceneController = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && pauseScreen != null)
         {
             if (gameIsPaused)
             {
@@ -82,14 +85,14 @@ public class GameManager : MonoBehaviour
 
     public void ReloadScene()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        StartCoroutine(sceneController.LoadSceneAnim(currentSceneIndex));
     }
 
     public void Restart()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
+        StartCoroutine(sceneController.LoadSceneAnim(0));
     }
 
     public void EndGame()
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(int screenBuildIndex)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(screenBuildIndex, LoadSceneMode.Single);
+        StartCoroutine(sceneController.LoadSceneAnim(screenBuildIndex));
     }
 
     public void ToggleButtonPrompt(string prompt)
