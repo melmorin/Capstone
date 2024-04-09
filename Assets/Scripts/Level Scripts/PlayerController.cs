@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int attackDamage = 10; 
 
     [Header ("Range Settings")]
-    [SerializeField] private float chargeSpeed = .04f; 
+    [SerializeField] private float chargeSpeed = 1.5f; 
     [SerializeField] private float chargeInterval = .005f; 
     [SerializeField] private float maxSpeed = 20f;
     [SerializeField] private float shootDelay = .25f;  
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     public bool isCharging = false; 
     public float rotZ; 
     public int currentHealth; 
+    public bool facingRight = true; 
 
     // Private Components 
     private Rigidbody2D rigb; 
@@ -54,7 +55,6 @@ public class PlayerController : MonoBehaviour
     private SceneController sceneManager;
 
     // Private bools 
-    private bool facingRight = true; 
     private bool canDash = true; 
     private bool isDashing;
     private bool invincibility; 
@@ -484,12 +484,18 @@ public class PlayerController : MonoBehaviour
         bulletSpeed = 0; 
         while (Input.GetButton("Fire2") && bulletSpeed < maxSpeed)
         {
-            bulletSpeed += chargeSpeed;
             yield return new WaitForSeconds(chargeInterval); 
         }     
         anim.SetBool("isCharging", false);
         bullet = Instantiate(bulletPrefab, firePoint.currentPoint.position, firePoint.currentPoint.rotation);
         yield return new WaitForSeconds(shootDelay); 
+        EndShootAnim(); 
+    }
+
+    // Adds to sling speed
+    public void AddtoSpeed()
+    {
+        bulletSpeed += chargeSpeed;
     }
 
     // Ends shooting animation

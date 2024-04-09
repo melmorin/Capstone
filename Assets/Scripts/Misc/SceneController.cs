@@ -75,6 +75,7 @@ public class SceneController : MonoBehaviour
                 {
                     player.transform.position = spawnPoint2.transform.position; 
                     player.GetComponent<TopDownMovement>().movement = new Vector2(0, -1);
+                    player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1.5f); 
                 }
                 else 
                 {

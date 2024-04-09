@@ -45,6 +45,19 @@ public class GunRotation : MonoBehaviour
         Transform tMin = null; 
         float minDist = Mathf.Infinity; 
 
+        float upPoint = 0; 
+        float midPoint = 0;
+        float downPoint = 0; 
+
+        foreach (Transform t in points)
+        {
+            float tRot = t.transform.eulerAngles.z;
+
+            if (tRot > 300) downPoint = tRot; 
+            else if (tRot > 15) upPoint = tRot;
+            else midPoint = tRot; 
+        }
+
         int count = 0; 
         int point = 0; 
         foreach (Transform t in points)
@@ -52,16 +65,24 @@ public class GunRotation : MonoBehaviour
             count++; 
             float tRot = t.transform.eulerAngles.z;
 
+            if (!playerController.facingRight)
+            {
+                if (tRot == midPoint) tRot = 180; 
+                if (tRot == upPoint) tRot = 135; 
+                if (tRot == downPoint) tRot = 210;
+            }
+
             if (rotZ > 270)
             {
-                if (tRot == 0)
+                if (tRot == midPoint)
                 {
                     tRot = 360; 
                 }
             }
+
             else if (rotZ > 135 && rotZ < 225)
             {
-                if (tRot == 0)
+                if (tRot == midPoint)
                 {
                     tRot = 180; 
                 }

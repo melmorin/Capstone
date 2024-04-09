@@ -27198,7 +27198,7 @@ MonoBehaviour:
   dashingCooldown: 1
   attackRange: 0.5
   attackDamage: 10
-  chargeSpeed: 0.04
+  chargeSpeed: 1.5
   chargeInterval: 0.005
   maxSpeed: 20
   shootDelay: 0.5
@@ -27206,6 +27206,7 @@ MonoBehaviour:
   isCharging: 0
   rotZ: 0
   currentHealth: 0
+  facingRight: 1
 --- !u!50 &1705781037
 Rigidbody2D:
   serializedVersion: 4
