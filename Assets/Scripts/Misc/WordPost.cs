@@ -9,18 +9,20 @@ public class WordPost : MonoBehaviour
     private bool playerIsClose = false;
     private ReadController readController;  
     private GameManager gameManager;
+    private SceneController sceneManager;
 
     // Start is called before the first frame update
     void Start()
     {
         readController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<ReadController>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if(Input.GetKeyDown(KeyCode.E) && playerIsClose && !sceneManager.isLoading && !gameManager.gameIsPaused)
         {
             if (readController.readPanel.activeInHierarchy)
             {
@@ -38,7 +40,7 @@ public class WordPost : MonoBehaviour
     // Checks when the player enters the trigger box 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player") && !sceneManager.isLoading && !gameManager.gameIsPaused) 
         {
             playerIsClose = true;  
             gameManager.ToggleButtonPrompt("Press E");

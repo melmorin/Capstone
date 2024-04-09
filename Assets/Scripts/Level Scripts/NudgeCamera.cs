@@ -7,18 +7,20 @@ public class NudgeCamera : MonoBehaviour
     private GameObject player; 
     private float nudgeDistance = 1f; 
     private GameManager gameManager; 
+    private SceneController sceneManager;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!gameManager.gameOver) transform.position = GetTargetPosition(); 
+        if (!gameManager.gameOver && !sceneManager.isLoading) transform.position = GetTargetPosition(); 
     }
 
     // Finds the direction to nudge 

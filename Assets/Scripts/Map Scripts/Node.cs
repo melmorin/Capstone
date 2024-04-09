@@ -47,14 +47,16 @@ public class Node : MonoBehaviour {
 		{
 			currentNode = false;
 		}
+
 		if (currentNode) 
 		{
 			// Activates menu of level if available 
-			if (levelName == "")
+			if (levelName == "" || sceneManager.isLoading)
 			{
 				mapController.SetMenuActive(false);
 				mapController.SetLockedMenu(false); 
 			}
+
 			else 
 			{	
 				if (sceneManager.LevelsWon() < winsNeeded)
@@ -79,7 +81,7 @@ public class Node : MonoBehaviour {
 			}
 
 			// Checks to see if any destination is null 
-			if (!gameManager.IsGamePaused())
+			if (!gameManager.IsGamePaused() && !sceneManager.isLoading)
 			{
 
 				dirX = Input.GetAxisRaw("Horizontal");

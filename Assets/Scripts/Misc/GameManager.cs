@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public bool gameOver = false; 
     public int coinCount = 0; 
 
-    private SceneController sceneController; 
+    private SceneController sceneManager;
 
     // Awake is called before start
     void Awake()
@@ -34,13 +34,13 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(sceneControllerObject);
         }
-        sceneController = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>();
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && pauseScreen != null)
+        if (Input.GetKeyDown(KeyCode.Escape) && pauseScreen != null && !sceneManager.isLoading && !gameOver)
         {
             if (gameIsPaused)
             {
@@ -86,13 +86,13 @@ public class GameManager : MonoBehaviour
     public void ReloadScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        StartCoroutine(sceneController.LoadSceneAnim(currentSceneIndex));
+        StartCoroutine(sceneManager.LoadSceneAnim(currentSceneIndex));
     }
 
     public void Restart()
     {
         Time.timeScale = 1f;
-        StartCoroutine(sceneController.LoadSceneAnim(0));
+        StartCoroutine(sceneManager.LoadSceneAnim(0));
     }
 
     public void EndGame()
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(int screenBuildIndex)
     {
         Time.timeScale = 1f;
-        StartCoroutine(sceneController.LoadSceneAnim(screenBuildIndex));
+        StartCoroutine(sceneManager.LoadSceneAnim(screenBuildIndex));
     }
 
     public void ToggleButtonPrompt(string prompt)

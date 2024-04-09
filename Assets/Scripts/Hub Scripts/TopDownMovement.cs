@@ -12,6 +12,7 @@ public class TopDownMovement : MonoBehaviour
     private bool facingLeft = false; 
     [SerializeField] private ParticleSystem particles; 
     private GameManager gameManager; 
+    private SceneController sceneManager;
 
     [Header ("Runtime Vars")]
     public Vector2 movement;
@@ -20,6 +21,7 @@ public class TopDownMovement : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
         anim = GetComponent<Animator>(); 
         rigb = GetComponent<Rigidbody2D>(); 
     }
@@ -27,11 +29,10 @@ public class TopDownMovement : MonoBehaviour
     // Update calls once per frame 
     private void Update()
     {
-        if (!gameManager.gameIsPaused)
+        Animate(); 
+        if (!gameManager.gameIsPaused && !sceneManager.isLoading)
         {
             ProcessInputs();
-            Animate(); 
-
             if (movement.x < 0 && !facingLeft || movement.x > 0 && facingLeft)
             {
                 Flip();
@@ -42,7 +43,10 @@ public class TopDownMovement : MonoBehaviour
     // FixedUpdate is called on Intervals 
     private void FixedUpdate()
     {
-        rigb.velocity = movement * moveSpeed; 
+        if (!gameManager.gameIsPaused && !sceneManager.isLoading)
+        {
+            rigb.velocity = movement * moveSpeed; 
+        }
     }
 
     // Animates the player 

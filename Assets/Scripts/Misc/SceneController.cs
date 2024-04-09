@@ -18,6 +18,7 @@ public class SceneController : MonoBehaviour
     public bool sheriffTalkedTo = false;  
     public string lastLevel = ""; 
     public List<LevelData> levelInfo = new List<LevelData>(); 
+    public bool isLoading; 
 
     // Start is called before the first frame update
     void Start()
@@ -33,9 +34,18 @@ public class SceneController : MonoBehaviour
     // loads a scene with its animation
     public IEnumerator LoadSceneAnim(int index)
     {
+        isLoading = true; 
         levelLoaderAnim.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(index, LoadSceneMode.Single);
+    }
+
+    // Makes the loading bool false; 
+    public IEnumerator EndLoading()
+    {
+        levelLoaderAnim.SetTrigger("End");
+        yield return new WaitForSeconds(transitionTime);
+        isLoading = false; 
     }
 
     // Runs on awake 
@@ -47,7 +57,8 @@ public class SceneController : MonoBehaviour
     // Runs every time a new scene is loaded 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        levelLoaderAnim.SetTrigger("End");
+        StartCoroutine(EndLoading());
+
         if (scene.buildIndex != 0)
         {
             gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();

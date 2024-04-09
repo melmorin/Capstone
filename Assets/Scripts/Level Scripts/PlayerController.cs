@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem jumpParticle;  
     private ParticleSystem weaponParticle; 
     private CreateParticle particleScript;
+    private SceneController sceneManager;
 
     // Private bools 
     private bool facingRight = true; 
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>(); 
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
         particleScript = GameObject.Find("GameManager").GetComponent<CreateParticle>(); 
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
@@ -99,15 +101,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Movement
-        dirX = Input.GetAxisRaw("Horizontal");
-        anim.SetFloat("speed", Mathf.Abs(dirX)); 
 
-        // firepoint rotation 
-        anim.SetFloat("rotZ", rotZ);
-
-        if (!dead && !gameManager.gameOver)
+        if (!dead && !gameManager.gameOver && !gameManager.gameIsPaused && !sceneManager.isLoading)
         {
+            // Movement
+            dirX = Input.GetAxisRaw("Horizontal");
+            anim.SetFloat("speed", Mathf.Abs(dirX)); 
+
+            // firepoint rotation 
+            anim.SetFloat("rotZ", rotZ);
+
+
             // Dash 
             if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking && !isCharging)
             {
@@ -160,6 +164,13 @@ public class PlayerController : MonoBehaviour
         particle.Stop(); 
     }
 
+    // makes sure the player can actually die 
+    private IEnumerator DeathCatch()
+    {
+        yield return new WaitForSeconds(8);
+        anim.SetTrigger("Hit_Ground");
+    }
+
     // Runs when melee animaiton ends 
     private void EndMelee()
     {
@@ -198,7 +209,7 @@ public class PlayerController : MonoBehaviour
     // Moves the player at a fixed rate 
     private void FixedUpdate()
     {
-        if (!gameManager.gameOver && !dead)
+        if (!gameManager.gameOver && !dead && !sceneManager.isLoading)
         {
             if (isDashing)
             {
@@ -208,7 +219,6 @@ public class PlayerController : MonoBehaviour
             if (!meleeAttacking && !isCharging)
             {
                 rigb.velocity = new Vector2(dirX * speed, rigb.velocity.y);
-                anim.SetFloat("velocity_y", rigb.velocity.y);
 
                 if (dirX < 0 && facingRight) 
                 {
@@ -222,6 +232,8 @@ public class PlayerController : MonoBehaviour
         }
 
         else rigb.velocity = new Vector2(0, 0f);
+
+        anim.SetFloat("velocity_y", rigb.velocity.y);
     }
 
     // Flips the player depending on the movement direction
@@ -359,6 +371,7 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetTrigger("die"); 
         dead = true; 
+        StartCoroutine(DeathCatch()); 
         gameManager.Death(); 
         rigb.gravityScale = 15f; 
     }

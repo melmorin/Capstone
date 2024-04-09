@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Melody
   productName: Capstone
   defaultCursor: {fileID: 2800000, guid: 65d19188a501dbf4f91a636b6130e452, type: 3}
   cursorHotspot: {x: 0, y: 0}

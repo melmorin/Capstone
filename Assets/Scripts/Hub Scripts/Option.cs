@@ -8,18 +8,19 @@ public class Option : MonoBehaviour
     private GameManager gameManager;
     private bool playerIsClose = false; 
     [SerializeField] private GameObject leavePanel; 
-
+    private SceneController sceneManager;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if(Input.GetKeyDown(KeyCode.E) && playerIsClose && !sceneManager.isLoading)
         {
             TogglePanel(); 
         }
@@ -28,7 +29,7 @@ public class Option : MonoBehaviour
     // Checks when the player enters the trigger box 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player") && !sceneManager.isLoading) 
         {
             playerIsClose = true;  
             gameManager.ToggleButtonPrompt("Press E");
