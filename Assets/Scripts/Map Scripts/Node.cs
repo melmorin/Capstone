@@ -40,6 +40,7 @@ public class Node : MonoBehaviour {
 		if (transform.position == player.transform.position) 
 		{
 			currentNode = true;
+			mapController.hasWarped = false; 
 			if (!mapController.facingLeft) mapController.Flip();
 		} 
 		

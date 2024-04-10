@@ -489,7 +489,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isCharging", false);
         bullet = Instantiate(bulletPrefab, firePoint.currentPoint.position, firePoint.currentPoint.rotation);
         yield return new WaitForSeconds(shootDelay); 
-        EndShootAnim(); 
+        isCharging = false; 
     }
 
     // Adds to sling speed
