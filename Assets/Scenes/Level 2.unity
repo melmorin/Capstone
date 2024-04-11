@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 74925729}
   m_Layer: 0
   m_Name: background_spritesheet'_3
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1578,7 +1578,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1869864763}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -8287,7 +8287,7 @@ GameObject:
   - component: {fileID: 463299515}
   m_Layer: 0
   m_Name: background_spritesheet'_0 (1)
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8803,10 +8803,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1869864763}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Restart
-        m_Mode: 1
+        m_MethodName: ChangeScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9815,7 +9815,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: main menu
+  m_text: Map
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -16138,7 +16138,7 @@ GameObject:
   - component: {fileID: 823262127}
   - component: {fileID: 823262126}
   m_Layer: 5
-  m_Name: restart
+  m_Name: backtoMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16211,12 +16211,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1869864763}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Restart
-        m_Mode: 1
+        m_MethodName: ChangeScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -16333,7 +16333,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 476345047
   m_SortingLayer: 9
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -25138,7 +25138,7 @@ GameObject:
   - component: {fileID: 1250057149}
   m_Layer: 0
   m_Name: background_spritesheet'_1
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25419,7 +25419,7 @@ GameObject:
   - component: {fileID: 1312178009}
   m_Layer: 0
   m_Name: background_spritesheet'_0 (2)
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25708,7 +25708,7 @@ GameObject:
   - component: {fileID: 1336006578}
   m_Layer: 0
   m_Name: background_spritesheet'_0
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31414,7 +31414,7 @@ GameObject:
   - component: {fileID: 1520158055}
   m_Layer: 0
   m_Name: background_spritesheet'_2
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32613,7 +32613,7 @@ MonoBehaviour:
   dashingCooldown: 1
   attackRange: 0.5
   attackDamage: 10
-  chargeSpeed: 0.04
+  chargeSpeed: 1.5
   chargeInterval: 0.005
   maxSpeed: 20
   shootDelay: 0.5
@@ -32621,6 +32621,7 @@ MonoBehaviour:
   isCharging: 0
   rotZ: 0
   currentHealth: 0
+  facingRight: 1
 --- !u!50 &1705781037
 Rigidbody2D:
   serializedVersion: 4
@@ -47865,7 +47866,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995895878}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

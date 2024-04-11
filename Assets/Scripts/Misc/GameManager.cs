@@ -89,12 +89,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(sceneManager.LoadSceneAnim(currentSceneIndex));
     }
 
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        StartCoroutine(sceneManager.LoadSceneAnim(0));
-    }
-
     public void EndGame()
     {
         deathScreen.SetActive(true); 

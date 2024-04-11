@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 74925729}
   m_Layer: 0
   m_Name: background_spritesheet'_3
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3098,6 +3098,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: test_enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4471,7 +4475,7 @@ GameObject:
   - component: {fileID: 463299515}
   m_Layer: 0
   m_Name: background_spritesheet'_0 (1)
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11140,7 +11144,7 @@ GameObject:
   - component: {fileID: 732628303}
   - component: {fileID: 732628304}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: backtomap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11227,7 +11231,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11321,6 +11325,10 @@ PrefabInstance:
     - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
       propertyPath: m_Name
       value: test_enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11873,7 +11881,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 476345047
   m_SortingLayer: 9
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -20064,7 +20072,7 @@ GameObject:
   - component: {fileID: 1250057149}
   m_Layer: 0
   m_Name: background_spritesheet'_1
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20290,7 +20298,7 @@ GameObject:
   - component: {fileID: 1312178009}
   m_Layer: 0
   m_Name: background_spritesheet'_0 (2)
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20437,7 +20445,7 @@ GameObject:
   - component: {fileID: 1336006578}
   m_Layer: 0
   m_Name: background_spritesheet'_0
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20820,6 +20828,10 @@ PrefabInstance:
     - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
       propertyPath: m_Name
       value: test_enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26050,7 +26062,7 @@ GameObject:
   - component: {fileID: 1520158055}
   m_Layer: 0
   m_Name: background_spritesheet'_2
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27100,7 +27112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705781032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7835872, y: -1.34, z: 0.02668272}
+  m_LocalPosition: {x: -2.7835872, y: -1.344315, z: 0.02668272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27230,7 +27242,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -41513,7 +41525,7 @@ CompositeCollider2D:
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -41794,9 +41806,9 @@ CompositeCollider2D:
       - {x: 44.031246, y: 0.99999243}
       - {x: 44, y: 0.9687392}
       - {x: 44.00003, y: -2}
-  m_VertexDistance: 0.0005
+  m_VertexDistance: 0.001
   m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
+  m_UseDelaunayMesh: 1
   m_CompositeGameObject: {fileID: 1995895878}
 --- !u!50 &1995895883
 Rigidbody2D:
@@ -41806,9 +41818,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995895878}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
@@ -41821,7 +41833,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
@@ -42060,7 +42072,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: main menu
+  m_text: 'Map
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -42437,6 +42451,10 @@ PrefabInstance:
     - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
       propertyPath: m_Name
       value: test_enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -44905,6 +44923,10 @@ PrefabInstance:
     - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
       propertyPath: m_Name
       value: test_enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613241958070068049, guid: 8a9534934ea3e6746a9d6345f37a536e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

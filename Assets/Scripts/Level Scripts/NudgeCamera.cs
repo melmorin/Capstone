@@ -5,7 +5,7 @@ using UnityEngine;
 public class NudgeCamera : MonoBehaviour
 {
     private GameObject player; 
-    private float nudgeDistance = 1f; 
+    private float nudgeDistance = .75f; 
     private GameManager gameManager; 
     private SceneController sceneManager;
 

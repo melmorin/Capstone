@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 364187879}
   m_Layer: 0
   m_Name: background_spritesheet'_2
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1080,7 +1080,7 @@ GameObject:
   - component: {fileID: 687247233}
   m_Layer: 0
   m_Name: background_spritesheet'_3
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1598,7 +1598,7 @@ GameObject:
   - component: {fileID: 1003489559}
   m_Layer: 0
   m_Name: background_spritesheet'_1
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5379,7 +5379,7 @@ GameObject:
   - component: {fileID: 1609933978}
   m_Layer: 0
   m_Name: background_spritesheet'_0
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

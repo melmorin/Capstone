@@ -81,8 +81,9 @@ public class MapController : MonoBehaviour
         if (activate)
         {
             lockedMenu.SetActive(true);
-            if (winsNeeded == 1) lockedText.text = "You need "+ winsNeeded +" more win to access this level";
-            else lockedText.text = "You need "+ winsNeeded +" more wins to access this level";
+            int realWinsNeeded = winsNeeded - sceneManager.LevelsWon();
+            if (realWinsNeeded == 1) lockedText.text = "You need "+ realWinsNeeded +" more win to access this level";
+            else lockedText.text = "You need "+ realWinsNeeded +" more wins to access this level";
         }
         else lockedMenu.SetActive(false);
     } 

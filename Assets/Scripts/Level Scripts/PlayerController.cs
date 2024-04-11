@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
         fillValue = maxHealth; 
 
         StartCoroutine(StartDelay()); 
+    
     }
 
     // All delays that run at start 
@@ -459,6 +460,15 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    // Checks if the player hit a wall 
+    private bool HitWall()
+    {
+        Vector2 dir; 
+        if (facingRight) dir = new Vector2(1, 0);
+        else dir = new Vector2(-1, 0);
+        return Physics2D.Raycast(transform.position, dir, 1f, jumpableGround); 
+    }
+
     // End Dash
     private IEnumerator EndDash(float originalGravity)
     {  
@@ -481,7 +491,7 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetBool("isCharging", true);
         anim.SetTrigger("shoot");
-        bulletSpeed = 0; 
+        bulletSpeed = 0;
         while (Input.GetButton("Fire2") && bulletSpeed < maxSpeed)
         {
             yield return new WaitForSeconds(chargeInterval); 

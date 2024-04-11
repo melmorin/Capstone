@@ -57,16 +57,40 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
-            if (transform.rotation.y == 0)
-            {
-                transform.Rotate(0, 180, 0);
-                facingRight = false; 
+            RotateEnemy(); 
+        }
+    }
+
+    // Move enemy when hitting a block 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+             var collisionPoint = other.ClosestPoint(gameObject.GetComponent<CapsuleCollider2D>().transform.position);
+
+            float distance = Mathf.Abs(collisionPoint.y - gameObject.GetComponent<CapsuleCollider2D>().bounds.center.y);
+            Debug.Log(distance);
+            if (Mathf.Abs(distance) < .22f)
+            {   
+                RotateEnemy();
             }
-            else 
-            {
-                transform.Rotate(0, -180, 0);
-                facingRight = true; 
-            }
+        }
+    }
+
+    // Rotates the enemy
+    private void RotateEnemy()
+    {
+        if (transform.rotation.y == 0)
+        {
+            transform.Rotate(0, 180, 0);
+            facingRight = false; 
+            Debug.Log("Rotated Left");
+        }
+        else 
+        {
+            transform.Rotate(0, -180, 0);
+            facingRight = true; 
+            Debug.Log("Rotated Right");
         }
     }
 }
