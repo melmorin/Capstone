@@ -15,16 +15,15 @@ public class Warp : MonoBehaviour {
 	public GameObject player;
 	public GameObject newCameraPos; 
 	
-	private Camera mainCamera; 
 	private float speed = 5f; 
-	private float camSpeed = 25f; 
 	private MapController mapController;
+	private GameManager gameManager; 
 	
 	// Calls before first frame updates
 	void Start()
 	{
+		gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>();
 		mapController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<MapController>();
-		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>(); 
 	}
 
 	// Update is called once per frame
@@ -40,7 +39,7 @@ public class Warp : MonoBehaviour {
 	// Teleports the player to their destination 
 	private IEnumerator Teleport () 
 	{
-		StartCoroutine(MoveCamera());
+		StartCoroutine(gameManager.MoveCamera(newCameraPos, false));
 
 		yield return new WaitForSeconds(.25f);
 		player.transform.position = warpDestination.transform.position;
@@ -59,15 +58,5 @@ public class Warp : MonoBehaviour {
 		}
 
 		mapController.Animate("Stop");	
-	}
-
-	// Moves Camera to new pos
-	private IEnumerator MoveCamera()
-	{
-		while (mainCamera.transform.position != newCameraPos.transform.position) 
-		{
-			mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, newCameraPos.transform.position, camSpeed * Time.deltaTime);
-			yield return null;
-		}
 	}
 }

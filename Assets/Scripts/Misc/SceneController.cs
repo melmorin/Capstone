@@ -8,6 +8,7 @@ public class SceneController : MonoBehaviour
     private int currentSceneIndex; 
     private GameManager gameManager;
     private GameObject player;  
+    private MapController mapController; 
 
     [Header ("Dependancies")]
     [SerializeField] private Animator levelLoaderAnim; 
@@ -25,6 +26,7 @@ public class SceneController : MonoBehaviour
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         gameManager = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<GameManager>(); 
+        mapController = GameObject.FindGameObjectWithTag("Game_Manager").GetComponent<MapController>();
         player = GameObject.FindGameObjectWithTag("Player"); 
         DontDestroyOnLoad(gameObject);
 
@@ -105,14 +107,15 @@ public class SceneController : MonoBehaviour
                 int index = -1; 
                 for (int i = 0; i < nodes.Length; i++)
                 { 
-                    if (nodes[i].levelName == lastLevel){
+                    if (nodes[i].levelName == lastLevel && lastLevel != ""){
                         index = i; 
                     } 
                 }
 
                 if (index != -1) 
-                {
+                { 
                     player.transform.position = nodes[index].gameObject.transform.position;
+                    StartCoroutine(gameManager.MoveCamera(nodes[index].cameraPos, true)); 
                 } 
             }
 

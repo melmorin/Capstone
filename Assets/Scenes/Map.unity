@@ -6061,6 +6061,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1456487138}
     m_Modifications:
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: cameraPos
+      value: 
+      objectReference: {fileID: 1271008253}
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: levelName
       value: Level 2
       objectReference: {fileID: 0}
@@ -6146,6 +6150,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1456487138}
     m_Modifications:
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: cameraPos
+      value: 
+      objectReference: {fileID: 931329663}
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: levelName
       value: Level 3
@@ -6364,6 +6372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1456487138}
     m_Modifications:
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: cameraPos
+      value: 
+      objectReference: {fileID: 1271008253}
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: levelName
       value: Level 1
@@ -6723,6 +6735,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1456487138}
     m_Modifications:
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: cameraPos
+      value: 
+      objectReference: {fileID: 931329663}
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: levelName
       value: Level 5
@@ -17498,12 +17514,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1456487138}
     m_Modifications:
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: cameraPos
+      value: 
+      objectReference: {fileID: 931329663}
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: levelName
       value: Level 4
       objectReference: {fileID: 0}
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: winsNeeded
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: levelNumber
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: leftDestination
@@ -17574,6 +17598,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1456487138}
     m_Modifications:
+    - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
+      propertyPath: cameraPos
+      value: 
+      objectReference: {fileID: 1271008253}
     - target: {fileID: -621062596023776908, guid: 961c7ea33250a88488c140369c1bfd14, type: 3}
       propertyPath: levelName
       value: Entrance
@@ -18398,8 +18426,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 88, y: -0}
-  m_SizeDelta: {x: 699.812, y: 156.504}
+  m_AnchoredPosition: {x: 200, y: -0}
+  m_SizeDelta: {x: 429.241, y: 156.504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1574877775
 MonoBehaviour:
@@ -18421,9 +18449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '32/56
-
-'
+  m_text: 100/100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18457,7 +18483,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 33
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

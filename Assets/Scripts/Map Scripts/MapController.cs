@@ -23,7 +23,7 @@ public class MapController : MonoBehaviour
     public string lastDirX;
     public bool facingLeft = true; 
     public bool hasWarped; 
-
+ 
     private Animator anim; 
     private int currentNodeNumber; 
     private Vector2 movement;

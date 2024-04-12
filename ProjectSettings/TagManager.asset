@@ -17,6 +17,7 @@ TagManager:
   - Platform
   - Coin
   - SceneManager
+  - FalseWalls
   layers:
   - Default
   - TransparentFX

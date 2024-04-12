@@ -11,6 +11,7 @@ public class EnemyPatrol : MonoBehaviour
     private Enemy enemyScript; 
     private Animator anim; 
     private bool facingRight = true; 
+    private bool canRotate = true; 
 
 
     // Start is called before the first frame update
@@ -66,10 +67,9 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-             var collisionPoint = other.ClosestPoint(gameObject.GetComponent<CapsuleCollider2D>().transform.position);
+            var collisionPoint = other.ClosestPoint(gameObject.GetComponent<CapsuleCollider2D>().transform.position);
 
             float distance = Mathf.Abs(collisionPoint.y - gameObject.GetComponent<CapsuleCollider2D>().bounds.center.y);
-            Debug.Log(distance);
             if (Mathf.Abs(distance) < .22f)
             {   
                 RotateEnemy();
@@ -77,20 +77,28 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
+    // Adds a delay between rotations
+    private IEnumerator CoolDown()
+    {
+        canRotate = false; 
+        yield return new WaitForSeconds(.5f);
+        canRotate = true; 
+    }
+
     // Rotates the enemy
     private void RotateEnemy()
     {
-        if (transform.rotation.y == 0)
+        if (transform.rotation.y == 0 && canRotate)
         {
             transform.Rotate(0, 180, 0);
             facingRight = false; 
-            Debug.Log("Rotated Left");
+            StartCoroutine(CoolDown()); 
         }
-        else 
+        else if (canRotate)
         {
             transform.Rotate(0, -180, 0);
             facingRight = true; 
-            Debug.Log("Rotated Right");
+            StartCoroutine(CoolDown()); 
         }
     }
 }

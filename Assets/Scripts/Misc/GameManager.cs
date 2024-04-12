@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public Sprite endItem; 
     public string levelName; 
 
+    private float camSpeed = 25f; 
+    private Camera mainCamera;
+
     [Header ("Dependancies")]
     public bool isLevel; 
     [SerializeField] private GameObject sceneControllerObject;
@@ -35,7 +38,25 @@ public class GameManager : MonoBehaviour
             Instantiate(sceneControllerObject);
         }
         sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneController>(); 
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>(); 
     }
+
+    // Moves Camera to new pos
+	public IEnumerator MoveCamera(GameObject newCameraPos, bool instantMove)
+	{
+        if (!instantMove)
+        {
+            while (mainCamera.transform.position != newCameraPos.transform.position) 
+            {
+                mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, newCameraPos.transform.position, camSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
+        else 
+        {
+            mainCamera.transform.position = newCameraPos.transform.position;
+        }
+	}
 
     // Update is called once per frame
     void Update()

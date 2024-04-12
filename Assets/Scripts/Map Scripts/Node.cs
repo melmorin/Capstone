@@ -9,6 +9,7 @@ public class Node : MonoBehaviour {
 	public string levelName;
 	[SerializeField] private int levelNumber;
 	[SerializeField] private int winsNeeded; 
+	public GameObject cameraPos;
 
 	[Header("Node Destinations")]
 	[SerializeField] private GameObject upDestination;
