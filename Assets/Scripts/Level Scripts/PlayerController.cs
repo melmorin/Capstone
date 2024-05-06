@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem weaponParticle; 
     private CreateParticle particleScript;
     private SceneController sceneManager;
+    private ReadController readController;
+    private DialogueController diaController;
 
     // Private bools 
     private bool canDash = true; 
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
     private bool meleeAttacking; 
     private bool startDelay; 
     private bool jumping; 
+    private bool diaOn;
 
     // Private float 
     private float fillValue; 
@@ -86,6 +89,9 @@ public class PlayerController : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth; 
         fillValue = maxHealth; 
+
+        readController = gameManager.GetComponent<ReadController>();
+        diaController = gameManager.GetComponent<DialogueController>(); 
 
         StartCoroutine(StartDelay()); 
     
@@ -112,6 +118,11 @@ public class PlayerController : MonoBehaviour
             // firepoint rotation 
             anim.SetFloat("rotZ", rotZ);
 
+            if (diaController != null)
+            {
+                if (diaController.dialoguePanel.activeSelf) diaOn = true; 
+                else diaOn = false; 
+            }
 
             // Dash 
             if (Input.GetButtonDown("Fire3") && canDash && !meleeAttacking && !isCharging)
@@ -120,7 +131,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Melee attack
-            else if (Input.GetButtonDown("Fire1") && !meleeAttacking && !isCharging && OnGround() && !startDelay)
+            else if (Input.GetButtonDown("Fire1") && !meleeAttacking && !isCharging && OnGround() && !startDelay && !readController.readPanel.activeSelf && !diaOn)
             {
                 rigb.velocity = new Vector2(0,0); 
                 meleeAttacking = true; 
