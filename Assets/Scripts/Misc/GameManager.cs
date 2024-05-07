@@ -106,8 +106,12 @@ public class GameManager : MonoBehaviour
 
     public void ReloadScene()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        StartCoroutine(sceneManager.LoadSceneAnim(currentSceneIndex));
+        if (!sceneManager.isLoading)
+        {
+            Time.timeScale = 1f;
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            StartCoroutine(sceneManager.LoadSceneAnim(currentSceneIndex));
+        }
     }
 
     public void EndGame()
@@ -121,8 +125,11 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int screenBuildIndex)
     {
-        Time.timeScale = 1f;
-        StartCoroutine(sceneManager.LoadSceneAnim(screenBuildIndex));
+        if (!sceneManager.isLoading)
+        {
+            Time.timeScale = 1f;
+            StartCoroutine(sceneManager.LoadSceneAnim(screenBuildIndex));
+        }
     }
 
     public void ToggleButtonPrompt(string prompt)

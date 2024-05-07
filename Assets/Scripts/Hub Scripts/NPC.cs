@@ -8,10 +8,10 @@ public class NPC : MonoBehaviour
 {
     [Header ("NPC Information")]
     public string npcName; 
-    [SerializeField] private Sprite[] npcProfiles; 
-    [SerializeField] private Sprite[] npcSecondProfiles; 
-    [SerializeField] private string[] dialogue; 
-    [SerializeField] private string[] secondDialogue; 
+    public Sprite[] npcProfiles; 
+    public Sprite[] npcSecondProfiles; 
+    public string[] dialogue; 
+    public string[] secondDialogue; 
 
     private bool playerIsClose;
     private DialogueController dialogueController;
@@ -48,7 +48,7 @@ public class NPC : MonoBehaviour
                 {
                     dialogueController.skipButton.SetActive(true); 
                 }
-                if (readOnce) 
+                if (readOnce && secondDialogue != null) 
                 {
                     dialogueController.currentDialogue = secondDialogue;
                     dialogueController.currentProfiles = npcSecondProfiles; 

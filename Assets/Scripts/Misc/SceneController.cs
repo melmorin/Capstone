@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SceneController : MonoBehaviour
     private GameManager gameManager;
     private GameObject player;  
     private MapController mapController; 
+    private GameObject trophy;  
 
     [Header ("Dependancies")]
     [SerializeField] private Animator levelLoaderAnim; 
@@ -16,7 +18,8 @@ public class SceneController : MonoBehaviour
 
     [Header ("Runtime Vars")]
     public bool scooperTalkedTo = false;
-    public bool sheriffTalkedTo = false;  
+    public bool sheriffTalkedTo = false; 
+    public bool hasUltimatePrize = false;  
     public string lastLevel = ""; 
     public List<LevelData> levelInfo = new List<LevelData>(); 
     public bool isLoading; 
@@ -31,6 +34,7 @@ public class SceneController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         if (gameManager.isLevel) WhenLevel(); 
+        SetTrophy();
     }
 
     // loads a scene with its animation
@@ -117,6 +121,8 @@ public class SceneController : MonoBehaviour
                     player.transform.position = nodes[index].gameObject.transform.position;
                     StartCoroutine(gameManager.MoveCamera(nodes[index].cameraPos, true)); 
                 } 
+
+                SetTrophy();
             }
 
             else 
@@ -127,6 +133,18 @@ public class SceneController : MonoBehaviour
         }
         
         currentSceneIndex = scene.buildIndex; 
+    }
+
+    // Sets trophy on map
+    void SetTrophy()
+    {
+        trophy = GameObject.Find("FinalTrophy"); 
+
+        if (trophy != null)
+        {
+            if (hasUltimatePrize) trophy.SetActive(true);
+            else trophy.SetActive(false);
+        }
     }
 
     // Runs when the scene is a level
