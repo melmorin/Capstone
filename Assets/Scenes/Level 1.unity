@@ -4887,7 +4887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0.13481207, y: 0.017946381, z: -0.002279825, w: 0.990706}
-  m_LocalPosition: {x: 1.084373, y: 2.6695282, z: -9.630073}
+  m_LocalPosition: {x: 2.038567, y: 2.6678853, z: -9.630073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11543,7 +11543,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -55.197327, y: -105}
+  m_AnchoredPosition: {x: -55.197388, y: -105}
   m_SizeDelta: {x: 102.20325, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789876497
@@ -30322,7 +30322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fc717cdd7b48345b2378516318659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 2977757876349365760, guid: 0ae4c9cf52bb6204ebe073bf1452f4cd, type: 3}
+  particlePrefab: {fileID: 4065744055690279136, guid: 0ae4c9cf52bb6204ebe073bf1452f4cd, type: 3}
 --- !u!114 &1869864765
 MonoBehaviour:
   m_ObjectHideFlags: 0

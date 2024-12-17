@@ -268,6 +268,7 @@ public class PlayerController : MonoBehaviour
     // Checks to see if the player enters a trigger 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log($"Trigger collided with {collision.tag}");
         if (!gameManager.gameOver && !dead)
         {
             if (collision.tag == "Enemy_Hitbox")
